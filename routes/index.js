@@ -4,7 +4,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'ÎâÖ¾½¡µÄĞÄÀíÊµÑé' });
+  res.render('index', {
+    title: 'Wu\'s Psychology Test',
+    projectName: 'å¿ƒç†å­¦å®éªŒ'
+  });
 });
 
 router.post('/newuser', function(req, res, next) {

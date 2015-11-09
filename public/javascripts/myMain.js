@@ -9,7 +9,7 @@ var t;
 var tt;
 var c;
 var countdownSeconds = 30;
-var alertSeconds = 2;
+var alertSeconds = 1;
 var buttonSequence = [];
 var answers = [0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1];
 //图片的答案；0为简单题，无论选什么都对；1是难题，无论选什么都错。
@@ -20,7 +20,7 @@ var reactionTime = [];
 var result = [];
 var userName;
 var ms ;
-function timedMsg(){
+function main(){
 	userName = $("#userName").val();//http://xieyu.blog.51cto.com/213338/55498
 	if (userName === "") {
 		//alert("请先输入用户名");

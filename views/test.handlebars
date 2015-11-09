@@ -1,0 +1,101 @@
+<div class="container-narrow">
+
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="http://v2.bootcss.com/examples/marketing-narrow.html#">Home</a></li>
+            <li><a href="http://v2.bootcss.com/examples/marketing-narrow.html#">About</a></li>
+            <li><a href="http://v2.bootcss.com/examples/marketing-narrow.html#">Contact</a></li>
+        </ul>
+        <h3 class="muted">{{projectName}}</h3>
+    </div>
+
+    <hr>
+
+    <div hidden id="invalidInputWarning" class="alert alert-warning alert-dismissible in fade" role="alert">
+        <strong>提示！</strong>输入不合法！
+    </div>
+
+
+
+    <div class="jumbotron">
+        <h1 class="cover-heading">【说明】</h1>
+        <p id="countdown" class="lead">欢迎来到本实验。首先进行一个智力测试。对于以下每个题目，每张大的主题图中都缺少一部分，主题图下方有8张小图片，选择其中一个，使整个图案合理而完整，根据选择按1~8号键。如果按下数字键，将会马上进入下一张（非数字键无响应）；否则，每张有20秒倒计时显示，倒计时结束后进入下一张。</p>
+
+        <img src="/images/0.bmp" height="500" width="500" alt="图片1"/>
+    </div>
+
+    <hr>
+
+    <div class="row-fluid marketing">
+        <div hidden id="player">
+            <audio  id="myAudio" src='/mp3/荒野の果てへ.mp3' controls='controls' loop='loop'></audio>
+        </div>
+
+        <div hidden class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2b">
+            <span class='hi-icon hi-icon-videos' onclick="playMusic()">Music</span>
+        </div>
+
+    <!--form>
+        {{!#each mood}}
+        <div class="form-group">
+        <label>{{.}}</label>
+        <input name="不加名字就特么不好使啊啊啊啊" id="heart-rating" type="number" class="rating" min="0" max="5" step="1" data-size="sm" data-symbol="&#x1f44d" data-default-caption="{rating} agree" data-star-captions="{}" value=2/>
+        {{!--heart &#xe005; thumbs up &#x1f44d--}}
+        </div>
+        {{!/each}}
+        <button id="singlebutton" name="singlebutton" class="btn btn-primary">确定</button>
+
+    </form-->
+
+        <form>
+            {{#each mood}}
+                <div class="form-group">
+                    <label>{{.}}</label>
+                    <input id="heart-rating" type="number" class="rating" min="0" max="5" step="1" data-size="sm" data-symbol="&#x1f44d" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
+                </div>
+            {{/each}}
+            <button id="singlebutton" name="singlebutton" class="btn btn-primary">确定</button>
+        </form>
+
+
+    </div>
+
+
+</div>
+
+    <hr>
+
+    <div class="footer">
+        <p>© Company 2013</p>
+    </div>
+
+</div> <!-- /container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/store.js"></script>
+<script src="/javascripts/myMain.js"></script>
+<script src="/javascripts/sweet-alert.js"></script>
+<script src="/javascripts/star-rating.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        //alert("Run myMain.js!");
+
+        //$("button").click(function(){
+            var x = $("form").serializeArray();
+            console.log(x);
+            var xobj = {};
+            $.each(x, function(i, field){
+                xobj[field.name] = field.value;
+                //never write xobj.field.name because xobj has no proporty named 'field'
+            });
+            store.set(String(Date()), JSON.stringify(xobj));
+        //});
+
+        main();
+    });
+</script>

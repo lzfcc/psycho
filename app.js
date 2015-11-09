@@ -8,15 +8,18 @@ var mongooose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var info = require('./routes/info');
+var test = require('./routes/test');
+var about = require('./routes/about');
 
 var app = express();
 
-mongooose.connect('mongodb://localhost/psycho');
-
+//mongooose.connect('mongodb://localhost/psycho');
+mongooose.connect('mongodb://lzf:abc123lzf@ds051534.mongolab.com:51534/psycho');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
-var handlebars = require('express-handlebars').create({defaultlayout: 'layout'});
+var handlebars = require('express-handlebars').create({defaultLayout: 'layout'});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -29,7 +32,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/info', info);
 app.use('/users', users);
+app.use('/test', test);
+app.use('/about', about);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -64,4 +70,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-//∆Ù∂Ø£∫SET DEBUG=psycho:* & npm start
+//ÂêØÂä®ÔºöSET DEBUG=psycho:* & npm start

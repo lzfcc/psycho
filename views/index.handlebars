@@ -1,104 +1,60 @@
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="/">首页</a></li>
+                <li role="presentation"><a href="/about">关于我们</a></li>
+                <li role="presentation"><a href="./Narrow Jumbotron Template for Bootstrap_files/Narrow Jumbotron Template for Bootstrap.html">联系</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">{{projectName}}</h3>
+    </div>
 
-<link rel="stylesheet" href="/stylesheets/component.css" />
+    <div class="jumbotron">
+        <h1>说明</h1>
+        <p class="lead">敬爱的老师：<br>
+            您好！非常感谢您在百忙中抽出时间填写这份问卷。本研究旨在了解中小学教师的一些基本情况，作为教育研究的参考。答案无对错之分，所得资料仅供学术研究之用，请您放心按照您真实的想法作答。因为会随机抽取部分老师来参加后续的智力趣味测验，希望写下您的联系方式，也便于给您进行结果反馈。您的真诚合作将是对我们研究工作的极大支持，谢谢！
+            <br>北京师范大学教育心理与学校咨询所
+            <br>2015年4月</p>
+        <p><a class="btn btn-lg btn-success" href="info" role="button">继续</a></p>
+    </div>
 
-<link rel="stylesheet" href="/stylesheets/star-rating.css" />
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-<link rel="stylesheet" href="/stylesheets/sweet-alert.css" />
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
 
-<!-- Custom styles for this template -->
-<link rel="stylesheet" href="/stylesheets/cover.css" >
-
-<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-<!--script src="./resources/js/ie-emulation-modes-warning.js"></script-->
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
- <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-		<div hidden id="noNameWarning" class="alert alert-warning alert-dismissible in fade" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<strong>提示！</strong>先把名字填好哦！
-		</div>
-		
-		<div hidden id="invalidInputWarning" class="alert alert-warning alert-dismissible in fade" role="alert">
-			<strong>提示！</strong>输入不合法！
-		</div>
-	  
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">心理学测试临时版v0.3</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="./Cover Template for Bootstrap_files/Cover Template for Bootstrap.html">Home</a></li>
-                  <li><a href="./Cover Template for Bootstrap_files/Cover Template for Bootstrap.html">Features</a></li>
-                  <li><a href="./Cover Template for Bootstrap_files/Cover Template for Bootstrap.html">Contact</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-		  <div id="feedback" class="">
-		  </div>
-		  
-          <div class="inner cover">
-            <h1 class="cover-heading">【说明】</h1>
-            <p id="countdown" class="lead">欢迎来到本实验。首先进行一个智力测试。对于以下每个题目，每张大的主题图中都缺少一部分，主题图下方有8张小图片，选择其中一个，使整个图案合理而完整，根据选择按1~8号键。如果按下数字键，将会马上进入下一张（非数字键无响应）；否则，每张有20秒倒计时显示，倒计时结束后进入下一张。</p>
-			<form id="button" class="form-inline">
-				<div class="form-group">
-					<label for="exampleInputName2">姓名</label>
-						<input type="text" class="form-control" id="userName" placeholder="张三">
-				</div>
-				<button type="button" class="btn btn-default" onClick = "timedMsg()">开始测试</button>
-			</form>
-            
-			<!--p class="lead">
-			  <input id="button" type="button" value="进入测试！" class="btn btn-lg btn-default" onClick = "timedMsg()">
-            </p-->
-			<div hidden id="player">
-				<audio id="myAudio" src='/mp3/荒野の果てへ.mp3' controls='controls' loop='loop'></audio>
-			</div>
-			<img hidden src="/images/1.jpg" height="500" width="500" alt="图片1"/>
-          </div>
-		  
-		  <div hidden class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2b">
-			<span class='hi-icon hi-icon-videos' onclick="playMusic()">Music</span>
-		  </div>
-		  
-		  <div hidden id="rating">
-			<input id="heart-rating" type="number" class="rating" min="0" max="5" step="1" data-size="lg" data-symbol="&#xe005;" data-default-caption="{rating} hearts" data-star-captions="{}">
-		  </div>
-		  
-		</div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
-
-		  
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
 
-      </div>
+        <div class="col-lg-6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	<script src="/javascripts/store.js"></script>
-    <script src="/javascripts/jquery.min.js"></script>
-	<script src="/javascripts/myMain.js"></script>
-    <script src="/javascripts/bootstrap.min.js"></script>
-	<script src="/javascripts/sweet-alert.js"></script>
-	<script src="/javascripts/star-rating.js"></script>
- </div>
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© Company 2014</p>
+    </footer>
+
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="./javascripts/ie10-viewport-bug-workaround.js"></script>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+
+
+
+
