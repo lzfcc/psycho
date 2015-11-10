@@ -1,10 +1,3 @@
-if (localStorage.pagecount){
-	localStorage.pagecount=Number(localStorage.pagecount) +1;
-}
-else{
-	localStorage.pagecount=1;//页面访问次数，当做user的唯一键
-}
-
 var t;
 var tt;
 var c;
@@ -21,19 +14,8 @@ var result = [];
 var userName;
 var ms ;
 function main(){
-	userName = $("#userName").val();//http://xieyu.blog.51cto.com/213338/55498
-	if (userName === "") {
-		//alert("请先输入用户名");
-		$("#noNameWarning").show();
-		return;
-	} 
-	$("#noNameWarning").hide();
-	$("#button").hide();
-	 
-	$("#nameInput").hide();
 
 	tutorial();
-	
 }
 function timedCount(){
 	$("#countdown").text("倒计时" + c + "秒");
@@ -48,6 +30,7 @@ function tutorial(){ // /tju:'t?:ri?:l/
 	$("#countdown").text("在正式实验中，这里会显示倒计时秒数。图片应该选2，请按下键盘数字键2。");
 	$(document).keypress(function(e){
 		if(e.which == 48 + 2){
+			$(document).unbind();
 			swal({
 				title: "好的！选择正确！",
 				text: "你现在应该已经明白实验流程，开始正式实验吧！",
@@ -166,7 +149,7 @@ function music(){
 			console.log("音乐评分：" + ms);
 			var myAudio=document.getElementById("myAudio");
 			swal("实验结束","感谢您的参与！祝您心情愉快！在播放" + myAudio.currentTime +"s后评分。");
-			storeInfo();
+			//storeInfo();
     });
 	
 	/*$(document).keypress(function(e){
@@ -191,7 +174,7 @@ function music(){
 function playMusic(){
 	var myAudio=document.getElementById("myAudio");
 	myAudio.play();
-	$("#rating").show();
+	$("#mood_rating").show();
 }
 
 function storeInfo(){
@@ -199,7 +182,7 @@ function storeInfo(){
 	var currentUserObject = JSON.stringify({'name': userName, 'date': Date(), 'input': buttonSequence, 'result': result, 'reaction(in second)': reactionTime, 'musicScore': ms});
 	//否则存储结果为字符串"[object Object]"，丢失信息
 	store.set(localStorage.pagecount, currentUserObject);
-	$.post("/newuser", {
+	$.post("/test/newuser", {
 		name: userName,
 		date: Date.now(),
 		score: ms

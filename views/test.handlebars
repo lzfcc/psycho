@@ -1,15 +1,5 @@
-<div class="container-narrow">
-
-    <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="http://v2.bootcss.com/examples/marketing-narrow.html#">Home</a></li>
-            <li><a href="http://v2.bootcss.com/examples/marketing-narrow.html#">About</a></li>
-            <li><a href="http://v2.bootcss.com/examples/marketing-narrow.html#">Contact</a></li>
-        </ul>
-        <h3 class="muted">{{projectName}}</h3>
-    </div>
-
-    <hr>
+<div class="container">
+    {{>navigate}}
 
     <div hidden id="invalidInputWarning" class="alert alert-warning alert-dismissible in fade" role="alert">
         <strong>提示！</strong>输入不合法！
@@ -24,7 +14,7 @@
         <img src="/images/0.bmp" height="500" width="500" alt="图片1"/>
     </div>
 
-    <hr>
+        <hr>
 
     <div class="row-fluid marketing">
         <div hidden id="player">
@@ -47,21 +37,18 @@
 
     </form-->
 
-        <form>
+        <form id="mood_rating">
             {{#each mood}}
                 <div class="form-group">
                     <label>{{.}}</label>
                     <input id="heart-rating" type="number" class="rating" min="0" max="5" step="1" data-size="sm" data-symbol="&#x1f44d" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
                 </div>
             {{/each}}
-            <button id="singlebutton" name="singlebutton" class="btn btn-primary">确定</button>
+            <a id="button" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
         </form>
 
 
     </div>
-
-
-</div>
 
     <hr>
 
@@ -85,17 +72,40 @@
     $(document).ready(function(){
         //alert("Run myMain.js!");
 
-        //$("button").click(function(){
+        //main();
+
+        $("#button").click(function(){
             var x = $("form").serializeArray();
             console.log(x);
-            var xobj = {};
+            var currentUser = "user" + store.get('pagecount');
+            var userObj = JSON.parse(store.get(currentUser));
+            var requestBody = {};
+            userObj['mood_test'] = {moods: [], first_rate: [], second_rate: []};
             $.each(x, function(i, field){
-                xobj[field.name] = field.value;
+                userObj.mood_test.moods.push(field.name);
+                userObj.mood_test.first_rate.push(field.value);
                 //never write xobj.field.name because xobj has no proporty named 'field'
             });
-            store.set(String(Date()), JSON.stringify(xobj));
-        //});
+            var objStr = JSON.stringify(userObj);
+            store.set(currentUser, objStr);
+            $.post("/test/new", {data: objStr},
+                    function(data, status) {
+                        console.log("\npost status: " + status);
+                    });
+            //ajax post无法在路有里重定向？？？？
+            /*$.ajax({
+                type: 'POST',
+                url: "/test/new",
+                data: {data: objStr},
+                success: function(dta, textStatus, jaXHR){
+                    if(typeof data.redirect == 'string') {
+                        return window.location = data.redirect;
+                    }
+                },
+                dataType: JSON
+            });*/
+            window.location.href='/';
+        });
 
-        main();
     });
 </script>

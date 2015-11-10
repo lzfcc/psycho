@@ -10,19 +10,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.post('/newuser', function(req, res, next) {
-  var user = new User({
-    name: req.body.name,
-    score: Number(req.body.score),
-    date: req.body.date
-  });
-  console.log(JSON.stringify(req.body));
-  user.save(function (err, user) {
-    if (err) {
-      console.log(err);
-    }
-    res.redirect('/');
-  });
-});
+
 
 module.exports = router;

@@ -1,15 +1,6 @@
 ﻿
 <div class="container">
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="./Narrow Jumbotron Template for Bootstrap_files/Narrow Jumbotron Template for Bootstrap.html">Home</a></li>
-                <li role="presentation"><a href="./Narrow Jumbotron Template for Bootstrap_files/Narrow Jumbotron Template for Bootstrap.html">About</a></li>
-                <li role="presentation"><a href="./Narrow Jumbotron Template for Bootstrap_files/Narrow Jumbotron Template for Bootstrap.html">Contact</a></li>
-            </ul>
-        </nav>
-        <h3 class="text-muted">{{projectName}}</h3>
-    </div>
+    {{>navigate}}
 
     <div class="jumbotron">
         <p class="lead">
@@ -20,7 +11,7 @@
     <div class="row marketing">
 
         <!--generat form: http://bootsnipp.com/forms-->
-        <form class="form-horizontal" method="post" action="/info/newinfo">
+        <form class="form-horizontal">
             <fieldset>
 
                 <!-- Form Name -->
@@ -30,28 +21,76 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="contact">联系方式</label>
                     <div class="col-md-4">
-                        <input id="contact" name="contact" type="text" placeholder="电话或邮箱" class="form-control input-md">
+                        <input id="contact" name="contact" type="text" placeholder="电话或邮箱" class="form-control input-md" required="required">
 
                     </div>
                 </div>
 
-                <!-- Text input-->
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="subject">目前任教科目</label>
+                    <div class="col-md-4">
+                        <select id="subject" name="subject" class="form-control">
+                            <option value="数学">数学</option>
+                            <option value="语文">语文</option>
+                            <option value="英语">英语</option>
+                            <option value="物理">物理</option>
+                            <option value="化学">化学</option>
+                            <option value="生物">生物</option>
+                            <option value="地理">地理</option>
+                            <option value="历史">历史</option>
+                            <option value="政治">政治</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="grade">目前授课年级</label>
-                    <div class="col-md-4">
-                        <input id="grade" name="grade" type="text" placeholder="如：高二" class="form-control input-md">
 
+                    <div class="col-md-4">
+                        <select id="grade" name="grade" class="form-control">
+                            <option value="小学一年级">小学一年级</option>
+                            <option value="小学二年级">小学二年级</option>
+                            <option value="小学三年级">小学三年级</option>
+                            <option value="小学四年级">小学四年级</option>
+                            <option value="小学五年级">小学五年级</option>
+                            <option value="小学六年级">小学六年级</option>
+                            <option value="初中一年级">初中一年级</option>
+                            <option value="初中二年级">初中二年级</option>
+                            <option value="初中三年级">初中三年级</option>
+                            <option value="高中一年级">高中一年级</option>
+                            <option value="高中二年级">高中二年级</option>
+                            <option value="高中三年级">高中三年级</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="">目前任教科目</label>
-                    <div class="col-md-4">
-                        <input id="" name="" type="text" placeholder="如：数学" class="form-control input-md">
+                <!--div class="form-group">
+                    <label class="col-md-4 control-label" for="grade">目前授课年级</label>
 
-                    </div>
-                </div>
+                    <label class="form-inline" for="school">
+                        <div class="col-md-2">
+                            <select id="school" name="school" class="form-control">
+                                <option value="小学">小学</option>
+                                <option value="初中">初中</option>
+                                <option value="高中">高中</option>
+                            </select>
+                        </div>
+                    </label>
+                    <label label class="form-inline" for="grade">
+                        <div class="col-md-2">
+                            <select id="grade" name="grade" class="form-control">
+                                <option value="一年级">一年级</option>
+                                <option value="二年级">二年级</option>
+                                <option value="三年级">三年级</option>
+                                <option value="四年级">四年级</option>
+                                <option value="五年级">五年级</option>
+                                <option value="六年级">六年级</option>
+                            </select>
+                        </div>
+                    </label>
+                </div-->
 
                 <!-- Multiple Radios (inline) -->
                 <div class="form-group">
@@ -77,12 +116,12 @@
                             25岁以下
                         </label>
                         <label class="radio-inline" for="age-1">
-                            <input type="radio" name="age" id="age-1" value="26-35岁">
-                            26-35岁
+                            <input type="radio" name="age" id="age-1" value="26~35岁">
+                            26~35岁
                         </label>
                         <label class="radio-inline" for="age-2">
-                            <input type="radio" name="age" id="age-2" value="36-45岁">
-                            36-45岁
+                            <input type="radio" name="age" id="age-2" value="36~45岁">
+                            36~45岁
                         </label>
                         <label class="radio-inline" for="age-3">
                             <input type="radio" name="age" id="age-3" value="45岁以上">
@@ -97,32 +136,32 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="teach_year-0">
-                                <input type="radio" name="teach_year" id="teach_year-0" value="0-3年" checked="checked">
-                                0-3年
+                                <input type="radio" name="teach_year" id="teach_year-0" value="0~3年" checked="checked">
+                                0~3年
                             </label>
                         </div>
                         <div class="radio">
                             <label for="teach_year-1">
-                                <input type="radio" name="teach_year" id="teach_year-1" value="4-7年">
-                                4-7年
+                                <input type="radio" name="teach_year" id="teach_year-1" value="4~7年">
+                                4~7年
                             </label>
                         </div>
                         <div class="radio">
                             <label for="teach_year-2">
-                                <input type="radio" name="teach_year" id="teach_year-2" value="8-15年">
-                                8-15年
+                                <input type="radio" name="teach_year" id="teach_year-2" value="8~15年">
+                                8~15年
                             </label>
                         </div>
                         <div class="radio">
                             <label for="teach_year-3">
-                                <input type="radio" name="teach_year" id="teach_year-3" value="16-23年">
-                                16-23年
+                                <input type="radio" name="teach_year" id="teach_year-3" value="16~23年">
+                                16~23年
                             </label>
                         </div>
                         <div class="radio">
                             <label for="teach_year-4">
-                                <input type="radio" name="teach_year" id="teach_year-4" value="24-30年">
-                                24-30年
+                                <input type="radio" name="teach_year" id="teach_year-4" value="24~30年">
+                                24~30年
                             </label>
                         </div>
                         <div class="radio">
@@ -249,12 +288,12 @@
                             15班及以下
                         </label>
                         <label class="radio-inline" for="school_scale-1">
-                            <input type="radio" name="school_scale" id="school_scale-1" value="16-30班">
-                            16-30班
+                            <input type="radio" name="school_scale" id="school_scale-1" value="16~30班">
+                            16~30班
                         </label>
                         <label class="radio-inline" for="school_scale-2">
-                            <input type="radio" name="school_scale" id="school_scale-2" value="31-45班">
-                            31-45班
+                            <input type="radio" name="school_scale" id="school_scale-2" value="31~45班">
+                            31~45班
                         </label>
                         <label class="radio-inline" for="school_scale-3">
                             <input type="radio" name="school_scale" id="school_scale-3" value="46班及以上">
@@ -269,31 +308,31 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="class-0">
-                                <input type="radio" name="class" id="class-0" value="5课时以下" checked="checked">
+                                <input type="radio" name="classes_per_week" id="class-0" value="5课时以下" checked="checked">
                                 5课时以下
                             </label>
                         </div>
                         <div class="radio">
                             <label for="class-1">
-                                <input type="radio" name="class" id="class-1" value="6-10课时">
-                                6-10课时
+                                <input type="radio" name="classes_per_week" id="class-1" value="6~10课时">
+                                6~10课时
                             </label>
                         </div>
                         <div class="radio">
                             <label for="class-2">
-                                <input type="radio" name="class" id="class-2" value="11-15课时">
-                                11-15课时
+                                <input type="radio" name="classes_per_week" id="class-2" value="11~15课时">
+                                11~15课时
                             </label>
                         </div>
                         <div class="radio">
                             <label for="class-3">
-                                <input type="radio" name="class" id="class-3" value="16-20课时">
-                                16-20课时
+                                <input type="radio" name="classes_per_week" id="class-3" value="16~20课时">
+                                16~20课时
                             </label>
                         </div>
                         <div class="radio">
                             <label for="class-4">
-                                <input type="radio" name="class" id="class-4" value="21课时以上">
+                                <input type="radio" name="classes_per_week" id="class-4" value="21课时以上">
                                 21课时以上
                             </label>
                         </div>
@@ -303,7 +342,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton"></label>
                     <div class="col-md-4">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">确定</button>
+                        <input id="button" class="btn btn-lg btn-success" role="button" type="submit"></input>
                     </div>
                 </div>
                 <!--p><a class="btn btn-lg btn-primary" href="test" role="button">OK</a></p-->
@@ -323,24 +362,29 @@
 <script src="./javascripts/ie10-viewport-bug-workaround.js"></script>
 <script src="/javascripts/store.js"></script>
 <script src="/javascripts/jquery.min.js"></script>
-<script src="/javascripts/myMain.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
 <script src="/javascripts/sweet-alert.js"></script>
-<script src="/javascripts/star-rating.js"></script>
+
 <script type="text/javascript">
 
     $(document).ready(function(){
-        //alert("Run myMain.js!");
 
-        //$("button").click(function(){
-        var x = $("form").serializeArray();
-        var xobj = {};
-        $.each(x, function(i, field){
-            xobj[field.name] = field.value;
-            //never write xobj.field.name because xobj has no proporty named 'field'
+        $("#button").click(function(){
+            if($("#contact").val()=="" || $("#grade").val()=="" || $("#subject").val()=="") {
+                swal("哦——","请将本页信息填写全","warning");
+            }
+            else {
+                var x = $("form").serializeArray();
+                var xobj = {info: {}};
+                $.each(x, function(i, field){
+                    xobj.info[field.name] = field.value;
+                    //never write xobj.field.name because xobj has no proporty named 'field'
+                });
+                store.set("user" + store.get("pagecount"), JSON.stringify(xobj));
+                window.location.href='/test'; //跳转页面
+            }
+            return false;
         });
-        store.set(String(Date()), JSON.stringify(xobj));
-        //});
 
     });
 </script>
