@@ -9,7 +9,7 @@
 
     <div class="jumbotron">
         <h1 class="cover-heading">【说明】</h1>
-        <p id="countdown" class="lead">欢迎来到本实验。首先进行一个智力测试。对于以下每个题目，每张大的主题图中都缺少一部分，主题图下方有8张小图片，选择其中一个，使整个图案合理而完整，根据选择按1~8号键。如果按下数字键，将会马上进入下一张（非数字键无响应）；否则，每张有20秒倒计时显示，倒计时结束后进入下一张。</p>
+        <p id="countdown" class="lead">欢迎来到本实验。下面要进行一个智力测试。对于以下每个题目，每张大的主题图中都缺少一部分，主题图下方有8张小图片，选择其中一个，使整个图案合理而完整，根据选择按1~8号键。如果按下数字键，将会马上进入下一张（非数字键无响应）；否则，每张有20秒倒计时显示，倒计时结束后进入下一张。</p>
 
         <img src="/images/0.bmp" height="500" width="500" alt="图片1"/>
     </div>
@@ -37,11 +37,11 @@
 
     </form-->
 
-        <form id="mood_rating">
+        <form id="mood_rating" hidden>
             {{#each mood}}
                 <div class="form-group">
                     <label>{{.}}</label>
-                    <input id="heart-rating" type="number" class="rating" min="0" max="5" step="1" data-size="sm" data-symbol="&#x1f44d" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
+                    <input id="heart-rating" type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
                 </div>
             {{/each}}
             <a id="button" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
@@ -70,13 +70,21 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        //alert("Run myMain.js!");
 
-        //main();
+        main();
 
         $("#button").click(function(){
             var x = $("form").serializeArray();
-            console.log(x);
+            //console.log(x);
+            var valid = true;
+            $.each(x, function(i, field){
+                if (field.value == "0") {
+                    swal("哦——","请将本页所有评分项填写全！","warning");
+                    valid = false;
+                    return;
+                }
+            });
+            if(!valid) return;
             var currentUser = "user" + store.get('pagecount');
             var userObj = JSON.parse(store.get(currentUser));
             var requestBody = {};
@@ -88,6 +96,7 @@
             });
             var objStr = JSON.stringify(userObj);
             store.set(currentUser, objStr);
+            swal("实验结束","感谢您的参与！祝您心情愉快！");
             $.post("/test/new", {data: objStr},
                     function(data, status) {
                         console.log("\npost status: " + status);
@@ -104,7 +113,8 @@
                 },
                 dataType: JSON
             });*/
-            window.location.href='/';
+            setTimeout("window.location.href='/'", 3000);
+            ;
         });
 
     });

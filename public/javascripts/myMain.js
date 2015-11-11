@@ -2,7 +2,7 @@ var t;
 var tt;
 var c;
 var countdownSeconds = 30;
-var alertSeconds = 1;
+var alertSeconds = 1.3;
 var buttonSequence = [];
 var answers = [0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1];
 //图片的答案；0为简单题，无论选什么都对；1是难题，无论选什么都错。
@@ -123,7 +123,9 @@ function finishFeedback(){
 	var rratio = r / picNumber * 100;
 	
 	$("h1").text("实验第一部分已经完成！");
-	$("#countdown").text("您总共完成了" + picNumber + "道题，其中正确的" + r + "道，正确率" + rratio.toFixed(2) +"%。按回车键继续。");
+
+	var randPeople = Math.round(100 * (0.1 + Math.random()));
+	$("#countdown").text("您总共完成了" + picNumber + "道题，其中正确的" + r + "道，正确率" + rratio.toFixed(2) +"%。当前共有" + randPeople + "人参与了实验，您的成绩超过了%" + (50 * (1 + randPeople *  Math.random())/randPeople).toFixed(1) + "的参与者。按回车键继续。");
 	$(document).keypress(function(e){
 		if(e.which == 13){
 			music();
@@ -132,25 +134,14 @@ function finishFeedback(){
 }
 
 function music(){
-	$("#countdown").hide();
-	$(".hi-icon-wrap").show();
+
+	$("#mood_rating").show();
 	//$("#countdown").text("该测试者的输入为[" + buttonSequence + "]，反应时长为[" + reactionTime +"]");
 	
-	$("h1").text("接下来请听一段音乐。在听完音乐之后，请根据您此时此刻的情绪状态进行评分。");
-	
+	$("h1").text("接下来请听一段音乐。在听完音乐之后，请根据您此时此刻的心情状态进行评分。");
+	$("#countdown").text("从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多");
 	$(".hi-icon-wrap").show();
-	
-	$('#heart-rating').on('rating.change', function() {
-            //alert($('#heart-rating').val());
-			ms = parseInt($('#heart-rating').val());
-			$('#heart-rating').rating('refresh', {
-				disabled:true
-			});
-			console.log("音乐评分：" + ms);
-			var myAudio=document.getElementById("myAudio");
-			swal("实验结束","感谢您的参与！祝您心情愉快！在播放" + myAudio.currentTime +"s后评分。");
-			//storeInfo();
-    });
+
 	
 	/*$(document).keypress(function(e){
 		if(e.which >= 48 && e.which <= 57){

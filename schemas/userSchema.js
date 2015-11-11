@@ -2,29 +2,6 @@
  * Created by Administrator on 2015/11/7.
  */
 var mongoose = require('mongoose');
-/*var userSchema = mongoose.Schema({
-    info: {
-        //name: String,
-        contact: String,
-        subject: String,
-        grade: String,
-        gender: String,
-        age: String,
-        teach_year: String,
-        title: String,
-        post: String,
-        education: String,
-        school_type: String,
-        school_scal: String,
-        classes_per_week: String,
-    },
-    date: String,
-    mood_test: {
-        moods: [String],
-        first_rate: [String],
-        second_rate: [String],
-    }
-});*/
 var userSchema = mongoose.Schema({
     info:{
         contact: String,
@@ -40,7 +17,10 @@ var userSchema = mongoose.Schema({
         school_scal: String,
         classes_per_week: String,
     },
-    date: String,
+    date: {
+        type: Date,
+        default: Date.now()
+    },
     mood_test: {
         moods: [String],
         first_rate: [String],
