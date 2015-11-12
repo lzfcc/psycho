@@ -19,6 +19,15 @@
 
                 <!-- Text input-->
                 <div class="form-group">
+                    <label class="col-md-4 control-label" for="contact">昵称</label>
+                    <div class="col-md-4">
+                        <input id="nickname" name="nickname" type="text" placeholder="比如：您姓名的首字母" class="form-control input-md" required="required">
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
                     <label class="col-md-4 control-label" for="contact">联系方式</label>
                     <div class="col-md-4">
                         <input id="contact" name="contact" type="text" placeholder="电话或邮箱" class="form-control input-md" required="required">
@@ -40,6 +49,7 @@
                             <option value="地理">地理</option>
                             <option value="历史">历史</option>
                             <option value="政治">政治</option>
+                            <option value="政治">其他</option>
                         </select>
                     </div>
                 </div>
@@ -50,15 +60,6 @@
 
                     <div class="col-md-4">
                         <select id="grade" name="grade" class="form-control">
-                            <option value="小学一年级">小学一年级</option>
-                            <option value="小学二年级">小学二年级</option>
-                            <option value="小学三年级">小学三年级</option>
-                            <option value="小学四年级">小学四年级</option>
-                            <option value="小学五年级">小学五年级</option>
-                            <option value="小学六年级">小学六年级</option>
-                            <option value="初中一年级">初中一年级</option>
-                            <option value="初中二年级">初中二年级</option>
-                            <option value="初中三年级">初中三年级</option>
                             <option value="高中一年级">高中一年级</option>
                             <option value="高中二年级">高中二年级</option>
                             <option value="高中三年级">高中三年级</option>
@@ -370,7 +371,7 @@
     $(document).ready(function(){
 
         $("#button").click(function(){
-            if($("#contact").val()=="" || $("#grade").val()=="" || $("#subject").val()=="") {
+            if($("#contact").val()=="" || $("#nickname").val()=="") {
                 swal("哦——","请将本页信息填写全","warning");
             }
             else {

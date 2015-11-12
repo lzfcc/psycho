@@ -7,7 +7,7 @@ var moment = require('moment');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     User.fetch(function(err, users) {
         if (err) {
             console.log(err);

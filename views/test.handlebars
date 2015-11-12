@@ -8,20 +8,23 @@
 
 
     <div class="jumbotron">
-        <h1 class="cover-heading">【说明】</h1>
-        <p id="countdown" class="lead">欢迎来到本实验。下面要进行一个智力测试。对于以下每个题目，每张大的主题图中都缺少一部分，主题图下方有8张小图片，选择其中一个，使整个图案合理而完整，根据选择按1~8号键。如果按下数字键，将会马上进入下一张（非数字键无响应）；否则，每张有20秒倒计时显示，倒计时结束后进入下一张。</p>
+        <h1 class="cover-heading">欢迎来到本实验。</h1>
+        <p id="countdown" class="lead">首先，请根据您此时此刻的心情状态，对以下形容词进行评分。从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多</p>
 
-        <img src="/images/0.bmp" height="500" width="500" alt="图片1"/>
+        <img hidden src="/images/0.bmp" height="500" width="500" alt="图片1"/>
     </div>
 
         <hr>
 
     <div class="row-fluid marketing">
-        <div hidden id="player">
-            <audio  id="myAudio" src='/mp3/荒野の果てへ.mp3' controls='controls' loop='loop'></audio>
+        <div hidden>
+            <audio id="myAudio" controls='controls' loop='loop'>
+                <source  src='/mp3/荒野の果てへ.mp3' type="audio/mp3">
+                您的浏览器不支持HTML5播放音乐！
+            </audio>
         </div>
 
-        <div hidden class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2b">
+        <div hidden id="playButton" class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2b">
             <span class='hi-icon hi-icon-videos' onclick="playMusic()">Music</span>
         </div>
 
@@ -37,16 +40,25 @@
 
     </form-->
 
-        <form id="mood_rating" hidden>
-            {{#each mood}}
+        <form id="mood_rating1">
+            {{#mood1}}
                 <div class="form-group">
                     <label>{{.}}</label>
-                    <input id="heart-rating" type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
+                    <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
                 </div>
-            {{/each}}
-            <a id="button" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+            {{/mood1}}
+            <a id="md_button1" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
         </form>
 
+        <form hidden id="mood_rating2">
+            {{#mood2}}
+                <div class="form-group">
+                    <label>{{.}}</label>
+                    <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
+                </div>
+            {{/mood2}}
+            <a id="md_button2" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+        </form>
 
     </div>
 
@@ -64,17 +76,46 @@
 <script src="/javascripts/jquery.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
 <script src="/javascripts/store.js"></script>
-<script src="/javascripts/myMain.js"></script>
+<script src="/javascripts/testProcedure.js"></script>
 <script src="/javascripts/sweet-alert.js"></script>
 <script src="/javascripts/star-rating.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
 
-        main();
+        $("#md_button1").click(function(){
+            var x = $("#mood_rating1").serializeArray();
+            var valid = true;
+            $.each(x, function(i, field){
+                if (field.value == "0") {
+                    swal("哦——","请将本页所有评分项填写全！","warning");
+                    valid = false;
+                    return;
+                }
+            });
+            if(!valid) return;
+            var currentUser = "user" + store.get('pagecount');
+            var userObj = JSON.parse(store.get(currentUser));
+            var requestBody = {};
+            userObj['mood_test'] = {};
+            $.each(x, function(i, field){
+                userObj.mood_test[field.name] = [field.value];
+                //never write xobj.field.name because xobj has no proporty named 'field'
+            });
+            var objStr = JSON.stringify(userObj);
+            store.set(currentUser, objStr);
+            swal({
+                title: "第一部分实验已完成！",
+                type: "success",
+                timer: 3000
+            });
+            setTimeout("tutorial()", 3000);
+        });
 
-        $("#button").click(function(){
-            var x = $("form").serializeArray();
+
+
+        $("#md_button2").click(function(){
+            var x = $("#mood_rating2").serializeArray();
             //console.log(x);
             var valid = true;
             $.each(x, function(i, field){
@@ -88,11 +129,9 @@
             var currentUser = "user" + store.get('pagecount');
             var userObj = JSON.parse(store.get(currentUser));
             var requestBody = {};
-            userObj['mood_test'] = {moods: [], first_rate: [], second_rate: []};
+
             $.each(x, function(i, field){
-                userObj.mood_test.moods.push(field.name);
-                userObj.mood_test.first_rate.push(field.value);
-                //never write xobj.field.name because xobj has no proporty named 'field'
+                userObj.mood_test[field.name].push(field.value);
             });
             var objStr = JSON.stringify(userObj);
             store.set(currentUser, objStr);

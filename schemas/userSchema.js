@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
     info:{
+        nickname: String,
         contact: String,
         subject: String,
         grade: String,
@@ -23,8 +24,8 @@ var userSchema = mongoose.Schema({
     },
     mood_test: {
         moods: [String],
-        first_rate: [String],
-        second_rate: [String],
+        first_rate: [Number],
+        second_rate: [Number],
     }
 
 });
