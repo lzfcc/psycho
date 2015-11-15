@@ -15,18 +15,18 @@ var userSchema = mongoose.Schema({
         post: String,
         education: String,
         school_type: String,
-        school_scal: String,
+        school_scale: String,
         classes_per_week: String,
     },
     date: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
-    mood_test: {
-        moods: [String],
-        first_rate: [Number],
-        second_rate: [Number],
-    }
+    mood_test: [{
+            mood: String,
+            first_rating: Number,
+            second_rating: Number
+        }]
 
 });
 

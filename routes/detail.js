@@ -4,25 +4,29 @@
 var express = require('express');
 var User = require('../models/User');
 var moment = require('moment');
+var _ = require('underscore');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/:id', function(req, res, next) {
-    User.fetch(function(err, users) {
-        if (err) {
-            console.log(err);
-        }
-        res.render('admin', {
+    var id = req.params.id;
+    console.log('req.params = ' + JSON.stringify(req.params));
+    
+    User.findById(id, function(err, user){
+        //ÕâÀïÓĞÎÊÌâ£¬Èç¹ûÒâÍâ·ÃÎÊÁËÒ»¸öÒÑ±»É¾³ıµÄid£¬½«»áµ¼ÖÂ·şÎñÆ÷å´»ú¡£Èç¹ûfindÊ§°ÜÈçºÎ´¦Àí£¿
+
+        console.log("user: " + JSON.stringify(user));
+        res.render('detail',{
             layout: 'admin_layout',
-            title: 'ç®¡ç†é¡µ',
-            projectName: 'å¿ƒç†å­¦å®éªŒ',
-            users: users,
-            helpers: {
-                formatDate: function(date){
-                    return moment(date).format('YY/MM/DD HH:mm:ss');               }
+            info: user.info,
+            moodTest: user.mood_test,
+            helpers:{
+                'counter':  function (index){  //http://stackoverflow.com/questions/15148528/counter-for-handlebars-each
+                    return index + 1;
+                }
             }
-            //è¿™é‡Œæ³¨æ„ï¼šhelperåœ¨æœåŠ¡å™¨è§£æäº†ï¼Œè€Œä¸æ˜¯åœ¨jsé‡Œå†™Handlebars.registerHelper
         });
+        
     });
 
 });

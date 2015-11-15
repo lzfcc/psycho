@@ -9,7 +9,7 @@
         <p class="lead" align="right">北京师范大学教育心理与学校咨询所
             <br>2015年4月
         </p>
-        <p><a class="btn btn-lg btn-primary" href="info" role="button">好</a></p>
+        <p><a class="btn btn-lg btn-primary" href="info" role="button" data-instant>好</a></p>
     </div>
 
     <div class="row marketing">
@@ -26,7 +26,8 @@
 <script src="./javascripts/ie10-viewport-bug-workaround.js"></script>
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
-<script src="/javascripts/store.js"></script>
+<script src="/javascripts/instantclick.min.js" data-no-instant></script>
+<script data-no-instant>InstantClick.init();</script>
 <script type="text/javascript">
     if (localStorage.pagecount){
         localStorage.pagecount=Number(localStorage.pagecount) +1;

@@ -22,14 +22,133 @@
 <div class="container">
 
     <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <h1>被试者详情</h1>
+        <p class="lead">[建设中]</p>
     </div>
-
 
     <div class="row-fluid">
+        <div class="col-md-6">
+            <h3>
+                基本信息
+            </h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    昵称
+                </dt>
+                <dd>
+                    {{info.nickname}}
+                </dd>
+                <dt>
+                    年龄
+                </dt>
+                <dd>
+                    {{info.age}}
+                </dd>
+                <dt>
+                    性别
+                </dt>
+                <dd>
+                    {{info.gender}}
+                </dd>
+                <dt>
+                    任教科目
+                </dt>
+                <dd>
+                    {{info.subject}}
+                </dd>
+                <dt>
+                    教龄
+                </dt>
+                <dd>
+                    {{info.teach_year}}
+                </dd>
+                <dt>
+                    职称
+                </dt>
+                <dd>
+                    {{info.title}}
+                </dd>
+                <dt>
+                    职务
+                </dt>
+                <dd>
+                    {{info.title}}
+                </dd>
+                <dt>
+                    教育程度
+                </dt>
+                <dd>
+                    {{info.education}}
+                </dd>
+                <dt>
+                    学校规模
+                </dt>
+                <dd>
+                    {{info.school_scale}}
+                </dd>
+                <dt>
+                    学校类别
+                </dt>
+                <dd>
+                    {{info.school_type}}
+                </dd>
+                <dt>
+                    每周平均课时数
+                </dt>
+                <dd>
+                    {{info.classes_per_week}}
+                </dd>
+                <dt>
+                    联系方式
+                </dt>
+                <dd>
+                    {{info.contact}}
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <h3>
+                实验情况
+            </h3>
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            编号
+                        </th>
+                        <th>
+                            情绪
+                        </th>
+                        <th>
+                            基线
+                        </th>
+                        <th>
+                            音乐后
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each moodTest}}
+                    <tr>
+                        <td>
+                            {{counter @index}}
+                            {{!--@index是默认的计数器，但从0开始，所以自定义 了helper：counter--}}
+                        </td>
+                        <td>
+                            {{mood}}
+                        </td>
+                        <td>
+                            {{first_rating}}
+                        </td>
+                        <td>
+                            {{second_rating}}
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
-
 
 </div><!-- /.container -->
 

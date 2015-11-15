@@ -22,70 +22,70 @@
 <div class="container">
 
     <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <h1>欢迎你，管理员</h1>
+        <p class="lead">[建设中]</p>
     </div>
 
 
-<div class="row-fluid">
-    <div class="span12">
-        <table class="table table-hover  table-bordered">
-            <thead>
-            <tr>
-                <th>
-                    编号
-                </th>
-                <th>
-                    测试时间
-                </th>
-                <th>
-                    详情
-                </th>
-                <th>
-                    删除
-                </th>
-            </tr>
-            </thead>
-            <tbody id="table_list">
-            {{#each users}}
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-hover  table-bordered">
+                <thead>
                 <tr>
-                    <td>
-                        {{_id}}
-                    </td>
-                    <td>
-                        {{formatDate date}}
-                    </td>
-                    <td>
-                        <a target="_blank" class="btn btn-primary" href="" type="button">查看</a>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger del" type="button" data-id="{{_id}}">删除</button>
-                    </td>
+                    <th>
+                        编号
+                    </th>
+                    <th>
+                        测试时间
+                    </th>
+                    <th>
+                        详情
+                    </th>
+                    <th>
+                        删除
+                    </th>
                 </tr>
-            {{/each}}
+                </thead>
+                <tbody id="table_list">
+                {{#each users}}
+                    <tr class="item-id-{{_id}}">
+                        <td>
+                            {{_id}}
+                        </td>
+                        <td>
+                            {{formatDate date}}
+                        </td>
+                        <td>
+                            <a target="_blank" class="btn btn-primary" href="/users/{{_id}}" type="button">查看</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger del" type="button" data-id="{{_id}}">删除</button>
+                        </td>
+                    </tr>
+                {{/each}}
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-        <script id="table_template" type="text/x-handlebars-template">
+            <script id="table_template" type="text/x-handlebars-template">
 
-        </script>
+            </script>
 
-        <!--script type="text/javascript">
-            $(document).ready(function() {
-                var table_template = Handlebars.compile($("#table_template").html());
-                console.log("Here!");
-                Handlebars.registerHelper("moment", function (date) {
-                    //return moment(date).format("YYYY/MM/DD HH:mm:ss");
-                    return Date(date).toString('yyyy-MM-dd');
+            <!--script type="text/javascript">
+                $(document).ready(function() {
+                    var table_template = Handlebars.compile($("#table_template").html());
+                    console.log("Here!");
+                    Handlebars.registerHelper("moment", function (date) {
+                        //return moment(date).format("YYYY/MM/DD HH:mm:ss");
+                        return Date(date).toString('yyyy-MM-dd');
+                    });
+                    console.log("Here!");
+                    $("#table_list").html(table_template({{!users}}));
                 });
-                console.log("Here!");
-                $("#table_list").html(table_template({{!users}}));
-            });
-        </script-->
+            </script-->
 
+        </div>
     </div>
-</div>
 
 
 </div><!-- /.container -->
@@ -105,6 +105,36 @@
         Handlebars.registerHelper("formatDate", function (date) {
             //return moment(date).format("YYYY/MM/DD HH:mm:ss");
             return Date(date).toString('yyyy-MM-dd');
+        });
+
+        $(function(){
+            $('.del').click(function(event){
+                //console.log("$(event.target) = " + $(event.target));
+                //console.log("event.target = " + event.target);
+
+                /*jQuery知识：HTML5自定义data-*属性，用jQuery的.data()访问
+                参考：http://www.vaikan.com/html-5-data-attributes-how-to-use-them-and-why/
+                http://www.w3school.com.cn/jquery/data_jquery_data.asp
+                * */
+
+                var id = $(event.target).data('id');
+                var tr = $('.item-id-' + id);
+                //length 属性包含 jQuery 对象中元素的数目。这里应该是表有多少行（表头也算一行）。
+
+                /*这种在?后面接的id，用req.query来拿到，而非req.body。参考
+                http://xuyuan923.github.io/2014/10/10/node-tutorial-req/
+                 */
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/admin?id=' + id
+                }).done(function(results){
+                    if (results.success == 1){
+                        if (tr.length > 0) {
+                            tr.remove();
+                        }
+                    }
+                });
+            });
         });
     });
 </script>

@@ -24,7 +24,22 @@ router.get('/', function(req, res, next) {
             //这里注意：helper在服务器解析了，而不是在js里写Handlebars.registerHelper
         });
     });
+});
 
+router.delete('/', function (req, res) {
+    //console.log(JSON.stringify(req.query));
+    var id = req.query.id;
+    console.log('DELETE请求！删除ID=' + id);
+    if (id) {
+        User.remove({_id: id}, function(err, user) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.json({success: 1});
+            }
+        });
+    }
 });
 
 module.exports = router;

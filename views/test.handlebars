@@ -19,7 +19,7 @@
     <div class="row-fluid marketing">
         <div hidden>
             <audio id="myAudio" controls='controls' loop='loop'>
-                <source  src='/mp3/荒野の果てへ.mp3' type="audio/mp3">
+                <source  src='{{music}}' type="audio/mp3">
                 您的浏览器不支持HTML5播放音乐！
             </audio>
         </div>
@@ -37,28 +37,53 @@
         </div>
         {{!/each}}
         <button id="singlebutton" name="singlebutton" class="btn btn-primary">确定</button>
-
     </form-->
 
-        <form id="mood_rating1">
-            {{#mood1}}
-                <div class="form-group">
-                    <label>{{.}}</label>
-                    <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
-                </div>
-            {{/mood1}}
-            <a id="md_button1" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
-        </form>
+        <div class="row-fluid">
+            <div class="col-md-6">
+                <form id="mood_rating11">
+                {{#leftrow mood1}}
+                    <div class="form-group">
+                        <label>{{.}}</label>
+                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
+                    </div>
+                {{/leftrow}}
+                    <a id="md_button1" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form id="mood_rating12">
+                {{#rightrow mood1}}
+                    <div class="form-group">
+                        <label>{{.}}</label>
+                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
+                    </div>
+                {{/rightrow}}
+                </form>
+            </div>
 
-        <form hidden id="mood_rating2">
-            {{#mood2}}
-                <div class="form-group">
-                    <label>{{.}}</label>
-                    <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=0 /><br />
-                </div>
-            {{/mood2}}
-            <a id="md_button2" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
-        </form>
+            <div class="col-md-6">
+                <form hidden id="mood_rating21">
+                {{#leftrow mood2}}
+                    <div class="form-group">
+                        <label>{{.}}</label>
+                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
+                    </div>
+                {{/leftrow}}
+                    <a id="md_button2" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form hidden id="mood_rating22">
+                {{#rightrow mood2}}
+                    <div name="form-group">
+                        <label>{{.}}</label>
+                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
+                    </div>
+                {{/rightrow}}
+                </form>
+            </div>
+        </div>
 
     </div>
 
@@ -79,81 +104,19 @@
 <script src="/javascripts/testProcedure.js"></script>
 <script src="/javascripts/sweet-alert.js"></script>
 <script src="/javascripts/star-rating.js"></script>
+<script src="/javascripts/underscore.min.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
-
+        
+        var currentUser = "user" + store.get('pagecount');
+        
         $("#md_button1").click(function(){
-            var x = $("#mood_rating1").serializeArray();
-            var valid = true;
-            $.each(x, function(i, field){
-                if (field.value == "0") {
-                    swal("哦——","请将本页所有评分项填写全！","warning");
-                    valid = false;
-                    return;
-                }
-            });
-            if(!valid) return;
-            var currentUser = "user" + store.get('pagecount');
-            var userObj = JSON.parse(store.get(currentUser));
-            var requestBody = {};
-            userObj['mood_test'] = {};
-            $.each(x, function(i, field){
-                userObj.mood_test[field.name] = [field.value];
-                //never write xobj.field.name because xobj has no proporty named 'field'
-            });
-            var objStr = JSON.stringify(userObj);
-            store.set(currentUser, objStr);
-            swal({
-                title: "第一部分实验已完成！",
-                type: "success",
-                timer: 3000
-            });
-            setTimeout("tutorial()", 3000);
+            baseline(currentUser);
         });
 
-
-
         $("#md_button2").click(function(){
-            var x = $("#mood_rating2").serializeArray();
-            //console.log(x);
-            var valid = true;
-            $.each(x, function(i, field){
-                if (field.value == "0") {
-                    swal("哦——","请将本页所有评分项填写全！","warning");
-                    valid = false;
-                    return;
-                }
-            });
-            if(!valid) return;
-            var currentUser = "user" + store.get('pagecount');
-            var userObj = JSON.parse(store.get(currentUser));
-            var requestBody = {};
-
-            $.each(x, function(i, field){
-                userObj.mood_test[field.name].push(field.value);
-            });
-            var objStr = JSON.stringify(userObj);
-            store.set(currentUser, objStr);
-            swal("实验结束","感谢您的参与！祝您心情愉快！");
-            $.post("/test/new", {data: objStr},
-                    function(data, status) {
-                        console.log("\npost status: " + status);
-                    });
-            //ajax post无法在路有里重定向？？？？
-            /*$.ajax({
-                type: 'POST',
-                url: "/test/new",
-                data: {data: objStr},
-                success: function(dta, textStatus, jaXHR){
-                    if(typeof data.redirect == 'string') {
-                        return window.location = data.redirect;
-                    }
-                },
-                dataType: JSON
-            });*/
-            setTimeout("window.location.href='/'", 3000);
-            ;
+            finalTest(currentUser);
         });
 
     });

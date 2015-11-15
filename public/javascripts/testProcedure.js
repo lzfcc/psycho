@@ -12,7 +12,41 @@ var picNumber = answers.length - 1;
 var reactionTime = [];
 var result = [];
 var userName;
-var ms ;
+var ms;
+var userObj;
+
+function baseline (currentUser) {
+	var x1 = $("#mood_rating11").serializeArray(); //一个对象的数组[{name:'xxx', value:'yyy'}, {...}, ...]
+    var x2 = $("#mood_rating12").serializeArray();
+    var x = x1.concat(x2); //数组合并
+
+    //console.log(x);
+
+    var valid = true;
+    $.each(x, function(i, field){
+        if (field.value == "0") {
+            swal("哦——","请将本页所有评分项填写全！","warning");
+            valid = false;
+            return;
+        }
+    });
+    if(!valid) return;
+
+    var sortedX = _.sortBy(x, 'name');  //sortBy：按照name关键字排序
+    var moods = _.pluck(sortedX, 'name'); //pluck：按照name关键字把对象萃取为数组
+    var firstRating = _.pluck(sortedX, 'value')
+
+	userObj = JSON.parse(store.get(currentUser));
+    //在localStorage中的user里增加一个key，moodTest，相应的value又是一个object
+    userObj['moodTest'] = {moods: moods, first_rating:firstRating, second_rating:undefined};
+
+    swal({
+        title: "第一部分实验已完成！",
+        type: "success",
+        timer: 3000
+    });
+	setTimeout("tutorial()", 3000);
+}
 
 function timedCount(){
 	$("#countdown").text("倒计时" + c + "秒");
@@ -20,8 +54,12 @@ function timedCount(){
 	tt = setTimeout("timedCount()",1000);
 	//console.log(tt);
 }
+
 function tutorial(){ // /tju:'t?:ri?:l/
-	$("#mood_rating1").hide();
+
+	$("#mood_rating11").hide();
+	$("#mood_rating12").hide();
+
 	$("img").attr("src", "/images/0.bmp");
 	$("img").show();
 	$("h1").text("下面要进行一个智力测试。");
@@ -131,20 +169,68 @@ function finishFeedback(){
 }
 
 function music(){
-	$("#mood_rating").show();
 	//$("#countdown").text("该测试者的输入为[" + buttonSequence + "]，反应时长为[" + reactionTime +"]");
 	
-	$("h1").text("接下来请听一段音乐。在听完音乐之后，请根据您此时此刻的心情状态进行评分。");
-	$("#countdown").text("从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多.");
+	$("h1").text("不要走开，先听会儿音乐吧！在听完音乐之后，会请根据您心情状态再进行一次评分。");
+	$("#countdown").text("点击音符符号播放！");
 	$("#playButton").show();
 }
 
 function playMusic(){
 	var myAudio=document.getElementById("myAudio");
 	myAudio.play();
-	var du = document.getElementById("myAudio").duration;  //不可用jQuery式写法！
+	var du = myAudio.duration;  //不可用jQuery式写法！
 	//console.log("music duration is " + du + "s.");
 	setTimeout(function(){
-		$("#mood_rating2").show();
-	},du * 100);
+		$("#mood_rating21").show();
+		$("#mood_rating22").show();
+		$("#h1").text("好，现在请根据您此时此刻的心情状态进行评分！");
+		$("#countdown").text("从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多。");
+	},du * 800);
+}
+
+function finalTest (currentUser) {
+
+	var x = $("#mood_rating21").serializeArray().concat($("#mood_rating22").serializeArray());
+    //console.log(x);
+    var valid = true;
+    $.each(x, function(i, field){
+        if (field.value == "0") {
+            swal("哦——","请将本页所有评分项填写全！","warning");
+            valid = false;
+            return;
+        }
+    });
+    if(!valid) return;
+
+    userObj.moodTest.second_rating = _.pluck(_.sortBy(x, 'name'), 'value');//moodTest形如{moods: [...], first_rating: [...], second_rating: [...]}
+
+    var testArr = _.unzip([userObj.moodTest.moods, userObj.moodTest.first_rating, userObj.moodTest.second_rating]); //返回一个数组的数组，形如[['mood1','first_rating1','second_rating1'], ...]
+    var newObjArr = [];
+    for(var i in testArr){
+        newObjArr.push(_.object(['mood', 'first_rating', 'second_rating'], testArr[i]));  //返回一个对象，形如{'mood':'.', 'first_rating': '.', ''}
+    }
+    userObj.moodTest = newObjArr;
+
+	var objStr = JSON.stringify(userObj);
+    store.set(currentUser, objStr);
+
+    swal("实验结束","感谢您的参与！祝您心情愉快！");
+    $.post("/test/new", {data: objStr},
+            function(data, status) {
+                console.log("\npost status: " + status);
+            });
+    //ajax post无法在路有里重定向？？？？
+    /*$.ajax({
+        type: 'POST',
+        url: "/test/new",
+        data: {data: objStr},
+        success: function(dta, textStatus, jaXHR){
+            if(typeof data.redirect == 'string') {
+                return window.location = data.redirect;
+            }
+        },
+        dataType: JSON
+    });*/
+    setTimeout("window.location.href='/'", 5000);
 }
