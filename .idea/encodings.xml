@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/routes/test.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/users.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/admin.handlebars" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/detail.handlebars" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/partials/navigate.handlebars" charset="UTF-8" />
   </component>
 </project>

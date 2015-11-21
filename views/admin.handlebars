@@ -87,6 +87,7 @@
         </div>
     </div>
 
+    <a target="_blank" class="btn btn-primary btn-lg" href="/admin/excel" type="button">导出数据</a>
 
 </div><!-- /.container -->
 
@@ -94,18 +95,16 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/javascripts/jquery.min.js"></script>
-<script src="/javascripts/bootstrap.min.js"></script>
-<script src="/javascripts/handlebars-v4.0.4.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/javascripts/ie10-viewport-bug-workaround.js"></script>
+
 <script type="text/javascript">
-    //这段代码不需要了。Exression helper在服务器处理了。
+
     $(document).ready(function() {
+
+        /*//这段代码不需要了。Exression helper在服务器处理了。
         Handlebars.registerHelper("formatDate", function (date) {
             //return moment(date).format("YYYY/MM/DD HH:mm:ss");
             return Date(date).toString('yyyy-MM-dd');
-        });
+        });*/
 
         $(function(){
             $('.del').click(function(event){

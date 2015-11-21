@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongooose = require('mongoose');
 
-
 var routes = require('./routes/index');
 var users = require('./routes/detail');
 var info = require('./routes/info');
@@ -34,7 +33,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use('/', routes);
 app.use('/info', info);

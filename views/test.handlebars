@@ -11,10 +11,10 @@
         <h1 class="cover-heading">欢迎来到本实验。</h1>
         <p id="countdown" class="lead">首先，请根据您此时此刻的心情状态，对以下形容词进行评分。从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多</p>
 
-        <img hidden src="/images/0.bmp" height="500" width="500" alt="图片1"/>
+        <img hidden src="/images/0.jpg" height="500" width="500" alt="图片1"/>
     </div>
 
-        <hr>
+    <hr>
 
     <div class="row-fluid marketing">
         <div hidden>
@@ -39,51 +39,59 @@
         <button id="singlebutton" name="singlebutton" class="btn btn-primary">确定</button>
     </form-->
 
-        <div class="row-fluid">
-            <div class="col-md-6">
-                <form id="mood_rating11">
-                {{#leftrow mood1}}
-                    <div class="form-group">
-                        <label>{{.}}</label>
-                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
-                    </div>
-                {{/leftrow}}
-                    <a id="md_button1" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <form id="mood_rating12">
-                {{#rightrow mood1}}
-                    <div class="form-group">
-                        <label>{{.}}</label>
-                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
-                    </div>
-                {{/rightrow}}
-                </form>
-            </div>
-
-            <div class="col-md-6">
-                <form hidden id="mood_rating21">
-                {{#leftrow mood2}}
-                    <div class="form-group">
-                        <label>{{.}}</label>
-                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
-                    </div>
-                {{/leftrow}}
-                    <a id="md_button2" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <form hidden id="mood_rating22">
-                {{#rightrow mood2}}
-                    <div name="form-group">
-                        <label>{{.}}</label>
-                        <input  type="number" class="rating " min="0" max="5" step="1" data-size="sm" data-symbol="&#xe005" data-default-caption="{rating} agree" data-star-captions="{}" type="number" name="{{.}}" value=1 /><br />
-                    </div>
-                {{/rightrow}}
-                </form>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="mood_rating11">
+                        {{#leftrow mood1}}
+                            <div class="form-group">
+                                <label>{{.}}</label>
+                                <input class="heart-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                            </div>
+                        {{/leftrow}}
+                        <a id="md_button1" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form id="mood_rating12">
+                        {{#rightrow mood1}}
+                            <div class="form-group">
+                                <label>{{.}}</label>
+                                <input class="heart-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                            </div>
+                        {{/rightrow}}
+                    </form>
+                </div>
             </div>
         </div>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <form hidden id="mood_rating21">
+                    {{#leftrow mood2}}
+                        <div class="form-group">
+                            <label>{{.}}</label>
+                            <input class="heart-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                        </div>
+                    {{/leftrow}}
+                        <a id="md_button2" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form hidden id="mood_rating22">
+                    {{#rightrow mood2}}
+                        <div name="form-group">
+                            <label>{{.}}</label>
+                            <input class="heart-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                        </div>
+                    {{/rightrow}}
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
@@ -98,17 +106,19 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/javascripts/jquery.js"></script>
-<script src="/javascripts/bootstrap.min.js"></script>
-<script src="/javascripts/store.js"></script>
-<script src="/javascripts/testProcedure.js"></script>
-<script src="/javascripts/sweet-alert.js"></script>
-<script src="/javascripts/star-rating.js"></script>
-<script src="/javascripts/underscore.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/javascripts/store.js" ></script>
+<script src="/javascripts/testProcedure.js" ></script>
+<script src="/javascripts/sweet-alert.min.js" ></script>
+<script src="/javascripts/star-rating.min.js" ></script>
+<script src="/javascripts/underscore.min.js" ></script>
+<script src="/javascripts/instantclick.min.js" data-no-instant></script>
+<script data-no-instant>InstantClick.init();</script>
 <script type="text/javascript">
 
     $(document).ready(function(){
-        
+        $('.heart-rating').rating({'showCaption':true, 'stars':'5', 'min':'0', 'max':'5', 'step':'1', 'size':'sm', 'starCaptions': {0:'未选', 1:'几乎没有', 2:'比较少', 3:'中等程度', 4:'比较多', 5: '极其多'}});
+
         var currentUser = "user" + store.get('pagecount');
         
         $("#md_button1").click(function(){

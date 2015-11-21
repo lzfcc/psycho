@@ -4,6 +4,7 @@
 var express = require('express');
 var User = require('../models/User');
 var moment = require('moment');
+var nodeExcel = require('excel-export');
 var router = express.Router();
 
 /* GET home page. */
@@ -40,6 +41,33 @@ router.delete('/', function (req, res) {
             }
         });
     }
+});
+
+router.get('/excel', function(req, res){
+    User.fetch(function(err, users) {
+        var conf ={};
+        conf.stylesXmlFile = "styles.xml";
+        conf.cols = [{
+            caption:'日期',
+            type:'string',
+        },{
+            caption:'用户信息',
+            type:'date',
+        },{
+            caption:'测试',
+            type:'string'
+        }];
+        var rows = [];
+        for(var u in users) {
+            rows.push([users[u].date, JSON.stringify(users[u].info), JSON.stringify(users[u].mood_test)]);
+        }
+        conf.rows = rows;
+        var result = nodeExcel.execute(conf);
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+        res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+        res.end(result, 'binary');
+    });
+
 });
 
 module.exports = router;
