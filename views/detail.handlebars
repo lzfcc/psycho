@@ -105,10 +105,38 @@
                     {{info.contact}}
                 </dd>
             </dl>
+
+            <h3>
+                复原力问卷
+            </h3>
+            <table class="table table-condensed table-hover">
+                <thead>
+                <tr>
+                    <th>
+                        选项
+                    </th>
+                    <th>
+                        得分
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each resiliencyTest}}
+                    <tr>
+                        <td>
+                            {{item}}
+                        </td>
+                        <td>
+                            {{rating}}
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
         </div>
         <div class="col-md-6">
             <h3>
-                实验情况
+                心情实验
             </h3>
             <table class="table table-condensed table-hover">
                 <thead>

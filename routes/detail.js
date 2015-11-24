@@ -15,11 +15,13 @@ router.get('/:id', function(req, res, next) {
     User.findById(id, function(err, user){
         //这里有问题，如果意外访问了一个已被删除的id，将会导致服务器宕机。如果find失败如何处理？
 
-        console.log("user: " + JSON.stringify(user));
+        //console.log("user: " + JSON.stringify(user));
         res.render('detail',{
             layout: 'admin_layout',
             info: user.info,
             moodTest: user.mood_test,
+            resiliencyTest: user.resiliency_test,
+            musicMood: user.music_mood,
             helpers:{
                 'counter':  function (index){  //http://stackoverflow.com/questions/15148528/counter-for-handlebars-each
                     return index + 1;

@@ -21,6 +21,8 @@ function load_musics(callback) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var moodList = ["感兴趣的", "心烦的",  "精神活力高的",  "心神不宁的",  "劲头足的",  "内疚的",  "恐惧的",  "敌意的",  "热情的", "自豪的", "易怒的", "警觉性高的", "害羞的", "备受鼓舞的", "紧张的", "意志坚定的", "注意力集中的", "坐立不安的", "有活力的", "害怕的" ];
+    var resiliencyList = ["1.我很清楚自己未来的目标。", "2.即使事情看起来没有希望，我也不会放弃。", "3.面对失败我不会气馁。",
+"4.我是一个非常幽默的人。", "5.我是周围人眼中的开心果。",  "6.我经常跟周围人开玩笑。", "7.我相信我能克服困难，解决难题。", "8.我严格遵照班规来管理班级。", "9.我会主动邀请家长来协助完成学生工作。", "10.我善于通过制定计划并严格实施来解决问题。"];
     /*var m1 = shuffle(moodList);
     console.log(m1);
     var m2 = shuffle(moodList);
@@ -38,6 +40,7 @@ router.get('/', function(req, res, next) {
         res.render('test', {
             title: 'test',
             projectName: '心理学实验',
+            resiliency: resiliencyList,
             mood1: _.shuffle(moodList),
             mood2: _.shuffle(moodList),
             music: music,
@@ -84,6 +87,8 @@ router.post('/new', function(req, res) {
     var user = new User({
         info: obj.info,
         mood_test: obj.moodTest,
+        resiliency_test: obj.resiliencyTest,
+        music_mood: obj.musicMood
     });
 
     user.save(function (err, user) {

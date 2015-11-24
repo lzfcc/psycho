@@ -8,18 +8,18 @@
 
 
     <div class="jumbotron">
-        <h1 class="cover-heading">欢迎来到本实验。</h1>
-        <p id="countdown" class="lead">首先，请根据您此时此刻的心情状态，对以下形容词进行评分。从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多</p>
+        <h1 class="cover-heading">实验第一部分。</h1>
+        <p id="countdown" class="lead">以下语句描述了个人生活中的一些情况，请您将它与您目前的真实情况进行比较，并选择您认为合适的选项。从1颗心到7颗心分别表示：完全不符合、比较不符合、有点不符合、不确定、有点符合、比较符合、完全符合。</p>
 
-        <img hidden src="/images/0.jpg" height="500" width="500" alt="图片1"/>
+        <img hidden data-no-instant src="/images/0.jpg" height="500" width="500" alt="图片1"/>
     </div>
 
     <hr>
 
     <div class="row-fluid marketing">
         <div hidden>
-            <audio id="myAudio" controls='controls' loop='loop'>
-                <source  src='{{music}}' type="audio/mp3">
+            <audio id="myAudio" controls='controls'>
+                <source data-no-instant src='{{music}}' type="audio/mp3">
                 您的浏览器不支持HTML5播放音乐！
             </audio>
         </div>
@@ -40,9 +40,23 @@
     </form-->
 
         <div class="container-fluid">
+
+            <div class="col-md-10">
+                <form id="resiliency_rating">
+                    {{#each resiliency}}
+                        <div class="form-group">
+                            <label>{{.}}</label>
+                            <input class="resiliency-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                        </div>
+                    {{/each}}
+                    <a id="rs_button" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+                </form>
+            </div>
+
+
             <div class="row">
                 <div class="col-md-6">
-                    <form id="mood_rating11">
+                    <form hidden id="mood_rating11">
                         {{#leftrow mood1}}
                             <div class="form-group">
                                 <label>{{.}}</label>
@@ -53,7 +67,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <form id="mood_rating12">
+                    <form hidden id="mood_rating12">
                         {{#rightrow mood1}}
                             <div class="form-group">
                                 <label>{{.}}</label>
@@ -82,7 +96,7 @@
                 <div class="col-md-6">
                     <form hidden id="mood_rating22">
                     {{#rightrow mood2}}
-                        <div name="form-group">
+                        <div class="form-group">
                             <label>{{.}}</label>
                             <input class="heart-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
                         </div>
@@ -106,28 +120,67 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+<script src="/javascripts/star-rating.min.js"></script>
+<script src="/javascripts/underscore.min.js"  ></script>
 <script src="/javascripts/store.js" ></script>
 <script src="/javascripts/testProcedure.js" ></script>
-<script src="/javascripts/sweet-alert.min.js" ></script>
-<script src="/javascripts/star-rating.min.js" ></script>
-<script src="/javascripts/underscore.min.js" ></script>
-<script src="/javascripts/instantclick.min.js" data-no-instant></script>
-<script data-no-instant>InstantClick.init();</script>
-<script type="text/javascript">
+<script src="/javascripts/sweet-alert.min.js"></script>
 
-    $(document).ready(function(){
-        $('.heart-rating').rating({'showCaption':true, 'stars':'5', 'min':'0', 'max':'5', 'step':'1', 'size':'sm', 'starCaptions': {0:'未选', 1:'几乎没有', 2:'比较少', 3:'中等程度', 4:'比较多', 5: '极其多'}});
+<script>
 
-        var currentUser = "user" + store.get('pagecount');
-        
-        $("#md_button1").click(function(){
-            baseline(currentUser);
+    $(document).ready(function() {
+        //console.log('document ready');
+        //InstantClick.on('fetch', function () {
+            ///console.log('instantclick change');
+            $('.heart-rating').rating({
+                'showCaption': true,
+                'stars': '5',
+                'min': '0',
+                'max': '5',
+                'step': '1',
+                'size': 'sm',
+                'starCaptions': {0: '未选', 1: '几乎没有', 2: '比较少', 3: '中等程度', 4: '比较多', 5: '极其多'}
+            });
+
+            $('.resiliency-rating').rating({
+                'showCaption': true,
+                'stars': '7',
+                'min': '0',
+                'max': '7',
+                'step': '1',
+                'size': 'sm',
+                'starCaptions': {0: '未选', 1: '完全不符合', 2: '比较不符合', 3: '有点不符合', 4: '不确定', 5: '有点符合', 6: '比较符合', 7: '完全符合'}
+            });
+
+            var music = "{{music}}";
+            var isPositive = true;
+            if (music.substring(5, 7) == 'ne') isPositive = false;
+
+            var currentUser = "user" + store.get('pagecount');
+            //console.log(store.get(currentUser));
+            if (!store.get(currentUser)) {
+                swal({
+                    title: "非法页面访问！",
+                    type: "error",
+                    timer: 3000
+                });
+                setTimeout("window.location.href='/'", 3000);
+            }
+
+            $("#rs_button").click(function () {
+                resiliency(currentUser, isPositive);
+            });
+
+            $("#md_button1").click(function () {
+                baseline();
+            });
+
+            $("#md_button2").click(function () {
+                finalTest(currentUser);
+            });
+
         });
+    //});
 
-        $("#md_button2").click(function(){
-            finalTest(currentUser);
-        });
-
-    });
 </script>

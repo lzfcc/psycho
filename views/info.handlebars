@@ -60,6 +60,9 @@
 
                     <div class="col-md-4">
                         <select id="grade" name="grade" class="form-control">
+                            <option value="初中一年级">初中一年级</option>
+                            <option value="初中二年级">初中二年级</option>
+                            <option value="初中三年级">初中三年级</option>
                             <option value="高中一年级">高中一年级</option>
                             <option value="高中二年级">高中二年级</option>
                             <option value="高中三年级">高中三年级</option>
@@ -360,18 +363,13 @@
 
 </div> <!-- /container -->
 
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/javascripts/sweet-alert.min.js"></script>
 <script src="/javascripts/store.js"></script>
-<script src="/javascripts/sweet-alert.min.js" ></script>
-<script src="/javascripts/instantclick.min.js" data-no-instant></script>
-<script data-no-instant>InstantClick.init();</script>
-<script type="text/javascript">
+
+<script>
 
     $(document).ready(function(){
-
+    //InstantClick.on('change', function(){
         $("#button").click(function(){
             if($("#contact").val()=="" || $("#nickname").val()=="") {
                 swal("哦——","请将本页信息填写全","warning");
@@ -384,10 +382,11 @@
                     //never write xobj.field.name because xobj has no proporty named 'field'
                 });
                 store.set("user" + store.get("pagecount"), JSON.stringify(xobj));
-                window.location.href='/test'; //跳转页面
+                window.location.href='/instruction'; //跳转页面
             }
             return false;
         });
 
     });
+
 </script>

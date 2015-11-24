@@ -19,8 +19,27 @@ router.get('/', function(req, res, next) {
             projectName: '心理学实验',
             users: users,
             helpers: {
-                formatDate: function(date){
-                    return moment(date).format('YY/MM/DD HH:mm:ss');               }
+                'formatDate': function(date){
+                    return moment(date).format('YY/MM/DD HH:mm:ss');
+                },
+                'each_po': function(list, options) {
+                    var ret = "";
+                    for(var i in list) {
+                        if (list[i].music_mood) {
+                            ret += options.fn(list[i]);
+                        }
+                    }
+                    return ret;
+                },
+                'each_ne': function(list, options) {
+                    var ret = "";
+                    for(var i in list) {
+                        if (!list[i].music_mood) {
+                            ret += options.fn(list[i]);
+                        }
+                    }
+                    return ret;
+                }
             }
             //这里注意：helper在服务器解析了，而不是在js里写Handlebars.registerHelper
         });

@@ -22,12 +22,17 @@ var userSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    music_mood: Boolean,
+    resiliency_test: [{
+        item: String,
+        rating: Number,
+    }],
+    res_sum: Number,
     mood_test: [{
             mood: String,
             first_rating: Number,
             second_rating: Number
         }]
-
 });
 
 userSchema.pre('save', function(next){
@@ -39,7 +44,7 @@ userSchema.pre('save', function(next){
 
 userSchema.statics = {
     fetch: function(cb) {
-        return this.find({}).sort('date').exec(cb);
+        return this.find({}).sort({"res_sum": -1}).exec(cb);
     },
     findById: function(id, cb) {
         return this.findOne({_id: id}).exec(cb);

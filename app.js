@@ -9,6 +9,7 @@ var mongooose = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/detail');
 var info = require('./routes/info');
+var instr = require('./routes/instruction');
 var test = require('./routes/test');
 var about = require('./routes/about');
 var contact = require('./routes/contact');
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/info', info);
+app.use('/instruction', instr);
 app.use('/test', test);
 app.use('/about', about);
 app.use('/contact', contact);
