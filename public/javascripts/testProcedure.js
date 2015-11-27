@@ -39,7 +39,7 @@ function resiliency(currentUser, isPositive) {
 	}
 	//注意这里value值默认会当做字符串处理，所以+就是字符串连接的意思了。
 	userObj['resiliencyTest'] = rt;
-	userObj['res_sum'] = sum;
+	userObj['resSum'] = sum;
 
 	swal({
 		title: "实验第一部分已完成！",
@@ -198,7 +198,7 @@ function finishFeedback(){
 	}
 	var rratio = r / picNumber * 100;
 	
-	$("h1").text("实验第三部分已经完成！");
+	$("h1").text("智力测试已经完成！");
 
 	$("#countdown").text("您总共完成了" + picNumber + "道题，其中正确的" + r + "道，正确率" + rratio.toFixed(2) +"%。很遗憾没有通过这项测试。按回车键继续。");
 	$(document).keypress(function(e){
@@ -211,7 +211,7 @@ function finishFeedback(){
 function music(){
 	//$("#countdown").text("该测试者的输入为[" + buttonSequence + "]，反应时长为[" + reactionTime +"]");
 	
-	$("h1").text("不要走开，先听会儿音乐吧！在听完音乐之后，会请根据您心情状态再进行一次评分。");
+	$("h1").text("不要走开，先听会儿音乐吧！在听完音乐之后，会进行实验第三部分，届时会请您根据您心情状态再进行一次评分。");
 	$("#countdown").text("点击音符符号播放！");
 	$("#playButton").show();
 }
@@ -224,8 +224,8 @@ function playMusic(){
 	setTimeout(function(){
 		$("#mood_rating21").show();
 		$("#mood_rating22").show();
-		$("#h1").text("好，现在请根据您此时此刻的心情状态进行评分！");
-		$("#countdown").text("从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多。");
+		$("#h1").text("实验第三部分");
+		$("#countdown").text("好，现在请根据您此时此刻的心情状态进行评分！从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多。");
 	},du * 990);
 }
 
@@ -255,7 +255,7 @@ function finalTest (currentUser) {
 	var objStr = JSON.stringify(userObj);
     store.set(currentUser, objStr);
 
-    swal("实验结束","感谢您的参与！祝您心情愉快！");
+    swal("实验结束","感谢您的参与！祝您心情愉快！","success");
     $.post("/test/new", {data: objStr},
             function(data, status) {
                 console.log("\npost status: " + status);

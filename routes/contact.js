@@ -8,6 +8,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('contact', {
         projectName: "心理学实验",
+        contact_active: "class=active"
     });
 });
 

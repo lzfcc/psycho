@@ -9,7 +9,7 @@
             </button>
             <a class="navbar-brand" href="/">{{projectName}}</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <!--div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
@@ -27,6 +27,8 @@
     </div>
 
 
+    <a target="_blank" class="btn btn-primary btn-lg" href="/admin/content" type="button">内容管理</a>
+
     <div class="row-fluid">
         <div class="span12">
             <h3>积极</h3>
@@ -40,7 +42,13 @@
                         测试时间
                     </th>
                     <th>
+                        用户IP
+                    </th>
+                    <th>
                         音乐情感
+                    </th>
+                    <th>
+                        复原力总分
                     </th>
                     <th>
                         详情
@@ -60,10 +68,16 @@
                             {{formatDate date}}
                         </td>
                         <td>
+                            {{ip}}
+                        </td>
+                        <td>
                             {{music_mood}}
                         </td>
                         <td>
-                            <a target="_blank" class="btn btn-primary" href="/users/{{_id}}" type="button">查看</a>
+                            {{res_sum}}
+                        </td>
+                        <td>
+                            <a target="_blank" class="btn btn-primary" href="/admin?user={{_id}}" type="button">查看</a>
                         </td>
                         <td>
                             <button class="btn btn-danger del" type="button" data-id="{{_id}}">删除</button>
@@ -107,7 +121,13 @@
                         测试时间
                     </th>
                     <th>
+                        用户IP
+                    </th>
+                    <th>
                         音乐情感
+                    </th>
+                    <th>
+                        复原力总分
                     </th>
                     <th>
                         详情
@@ -127,10 +147,16 @@
                             {{formatDate date}}
                         </td>
                         <td>
+                            {{ip}}
+                        </td>
+                        <td>
                             {{music_mood}}
                         </td>
                         <td>
-                            <a target="_blank" class="btn btn-primary" href="/users/{{_id}}" type="button">查看</a>
+                            {{res_sum}}
+                        </td>
+                        <td>
+                            <a target="_blank" class="btn btn-primary" href="/admin?user={{_id}}" type="button">查看</a>
                         </td>
                         <td>
                             <button class="btn btn-danger del" type="button" data-id="{{_id}}">删除</button>
@@ -160,6 +186,7 @@
 
         </div>
     </div>
+
 
     <a target="_blank" class="btn btn-primary btn-lg" href="/admin/excel" type="button">导出数据</a>
 

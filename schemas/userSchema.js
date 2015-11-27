@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
+    ip: String,
     info:{
         nickname: String,
         contact: String,

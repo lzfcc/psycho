@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2015/11/8.
  */
+var requestIp = require('request-ip');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
@@ -85,10 +86,12 @@ router.post('/new', function(req, res) {
     }*/
 
     var user = new User({
+        ip: requestIp.getClientIp(req),
         info: obj.info,
         mood_test: obj.moodTest,
         resiliency_test: obj.resiliencyTest,
-        music_mood: obj.musicMood
+        music_mood: obj.musicMood,
+        res_sum: obj.resSum
     });
 
     user.save(function (err, user) {

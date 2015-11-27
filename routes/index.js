@@ -6,7 +6,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Wu\'s Psychology Test',
-    projectName: '心理学实验'
+    projectName: '心理学实验',
+    index_active: "class=active"
   });
 });
 

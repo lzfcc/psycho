@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
     var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
     res.render('about', {
         projectName: "心理学实验",
-        fortune: randomFortune
+        fortune: randomFortune,
+        about_active: "class=active"
     });
 });
 
