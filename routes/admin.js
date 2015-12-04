@@ -103,17 +103,23 @@ router.get('/excel', function(req, res){
         conf.stylesXmlFile = "styles.xml";
         conf.cols = [{
             caption:'日期',
-            type:'string',
+            type:'date',
+        },{
+            caption:'复原力',
+            type:'number',
         },{
             caption:'用户信息',
-            type:'date',
+            type:'string'
+        },{
+            caption:'音乐属性',
+            type:'bool'
         },{
             caption:'测试',
             type:'string'
         }];
         var rows = [];
         for(var u in users) {
-            rows.push([users[u].date, JSON.stringify(users[u].info), JSON.stringify(users[u].mood_test)]);
+            rows.push([users[u].date, users[u].res_sum, JSON.stringify(users[u].info), users[u].music_mood, JSON.stringify(users[u].mood_test)]);
         }
         conf.rows = rows;
         var result = nodeExcel.execute(conf);

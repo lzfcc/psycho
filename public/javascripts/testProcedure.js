@@ -15,8 +15,7 @@ var ms;
 var userObj;
 
 function resiliency(currentUser, isPositive) {
-
-	var x = $("#resiliency_rating").serializeArray();
+	var x = $("#resiliency_rating1").serializeArray().concat($("#resiliency_rating2").serializeArray());
 
 	var valid = true;
 	$.each(x, function(i, field){
@@ -47,7 +46,8 @@ function resiliency(currentUser, isPositive) {
 		timer: 3000
 	});
 	setTimeout(function(){
-		$("#resiliency_rating").hide();
+		$("#resiliency_rating1").hide();
+		$("#resiliency_rating2").hide();
 		$("#mood_rating11").show();
 		$("#mood_rating12").show();
 		$("h1").text("实验第二部分");
@@ -217,11 +217,14 @@ function music(){
 }
 
 function playMusic(){
+	$("#playing").show();
+	$("#playButton").hide();
 	var myAudio=document.getElementById("myAudio");
 	myAudio.play();
 	var du = myAudio.duration;  //不可用jQuery式写法！
 	//console.log("music duration is " + du + "s.");
 	setTimeout(function(){
+		$("#playing").hide();
 		$("#mood_rating21").show();
 		$("#mood_rating22").show();
 		$("#h1").text("实验第三部分");
@@ -230,7 +233,6 @@ function playMusic(){
 }
 
 function finalTest (currentUser) {
-
 	var x = $("#mood_rating21").serializeArray().concat($("#mood_rating22").serializeArray());
     //console.log(x);
     var valid = true;
@@ -255,7 +257,7 @@ function finalTest (currentUser) {
 	var objStr = JSON.stringify(userObj);
     store.set(currentUser, objStr);
 
-    swal("实验结束","感谢您的参与！祝您心情愉快！","success");
+    swal("实验第三部分已完成！","","success");
     $.post("/test/new", {data: objStr},
             function(data, status) {
                 console.log("\npost status: " + status);
@@ -272,5 +274,5 @@ function finalTest (currentUser) {
         },
         dataType: JSON
     });*/
-    setTimeout("window.location.href='/'", 5000);
+    setTimeout("window.location.href='/ending'", 5000);
 }

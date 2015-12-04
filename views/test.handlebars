@@ -9,7 +9,7 @@
 
     <div class="jumbotron">
         <h1 class="cover-heading">实验第一部分。</h1>
-        <p id="countdown" class="lead">以下语句描述了个人生活中的一些情况，请您将它与您目前的真实情况进行比较，并选择您认为合适的选项。从1颗心到7颗心分别表示：完全不符合、比较不符合、有点不符合、不确定、有点符合、比较符合、完全符合。</p>
+        <p id="countdown" class="lead">以下31条语句描述了个人生活中的一些情况，请您将它与您目前的真实情况进行比较，并选择您认为合适的选项。从1颗心到7颗心分别表示：完全不符合、比较不符合、有点不符合、不确定、有点符合、比较符合、完全符合。</p>
 
         <img hidden data-no-instant src="/images/0.jpg" height="500" width="500" alt="图片1"/>
     </div>
@@ -28,6 +28,18 @@
             <span class='hi-icon hi-icon-videos' onclick="playMusic()">Music</span>
         </div>
 
+        <div hidden id="playing" style="margin:0 0 0 40%">
+            <div class="loader font4">
+                <span>P</span>
+                <span class="span2">L</span>
+                <span class="span3">A</span>
+                <span class="span4">Y</span>
+                <span class="span5">I</span>
+                <span class="span6">N</span>
+                <span class="span7">G</span>
+            </div>
+        </div>
+
     <!--form>
         {{!#each mood}}
         <div class="form-group">
@@ -40,17 +52,28 @@
     </form-->
 
         <div class="container-fluid">
-
-            <div class="col-md-10">
-                <form id="resiliency_rating">
-                    {{#each resiliency}}
-                        <div class="form-group">
-                            <label>{{.}}</label>
-                            <input class="resiliency-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
-                        </div>
-                    {{/each}}
-                    <a id="rs_button" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
-                </form>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="resiliency_rating1">
+                        {{#leftrow resiliency}}
+                            <div class="form-group">
+                                <label>{{.}}</label>
+                                <input class="resiliency-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                            </div>
+                        {{/leftrow}}
+                        <a id="rs_button" class="btn btn-lg btn-success" role="button" type="submit">提交</a>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form id="resiliency_rating2">
+                        {{#rightrow resiliency}}
+                            <div class="form-group">
+                                <label>{{.}}</label>
+                                <input class="resiliency-rating" data-symbol="&#xe005" name="{{.}}" value=0 />
+                            </div>
+                        {{/rightrow}}
+                    </form>
+                </div>
             </div>
 
 
@@ -110,10 +133,6 @@
     </div>
 
     <hr>
-
-    <div class="footer">
-        <p>© Company 2013</p>
-    </div>
 
 </div> <!-- /container -->
 
