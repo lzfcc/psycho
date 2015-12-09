@@ -23,10 +23,14 @@ var userSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    music_mood: Boolean,
+    music: Number,  //0无音乐，1积极音乐，2消极音乐
     resiliency_test: [{
         item: String,
         rating: Number,
+    }],
+    iq_reaction: [{
+        pic: String,
+        time: Number
     }],
     res_sum: Number,
     mood_test: [{

@@ -5,6 +5,7 @@ var requestIp = require('request-ip');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var Test = require('../models/Test');
 var _ = require('underscore');
 var fs = require('fs');
 var path = require('path');
@@ -28,44 +29,51 @@ router.get('/', function(req, res, next) {
     var m2 = shuffle(moodList);
     console.log(m2); //js数组都作为引用传参，此时m1也等于m2了
     */
-    load_musics(function (err, musics){
-        if (err) {
-            music = 'http://7wy46p.com1.z0.glb.clouddn.com/Canon.mp3';
-            //如果出现文件错误，则播放网络音乐
-        }
-        else {
-            var music = '/mp3/' + musics[Math.floor(Math.random() * musics.length)];
-        }
-        console.log("本次播放：" + music);
-        res.render('test', {
-            title: 'test',
-            projectName: '心理学实验',
-            resiliency: resiliencyList,
-            mood1: _.shuffle(moodList),
-            mood2: _.shuffle(moodList),
-            music: music,
-            helpers: {  //为了表单过长，分成两列显示
-                leftrow: function(list, options){
-                    var ret = "";
-                    for(var i = 0; i < list.length; i++) {
-                        if ((i & 1) == 0) {
-                            ret += options.fn(list[i]);
-                        }
-                    }
-                    return ret;
-                },
-                rightrow: function(list, options){
-                    var ret = "";
-                    for(var i = 0; i < list.length; i++) {
-                        if (i & 1) {
-                            ret += options.fn(list[i]);
-                        }
-                    }
-                    return ret;
-                }
+
+    Test.find1stDoc(function (err, test) {
+        var hasMusic = test.music_on;
+
+        load_musics(function (err, musics){
+            if (err) {
+                music = 'http://7wy46p.com1.z0.glb.clouddn.com/Canon.mp3';
+                //如果出现文件错误，则播放网络音乐
             }
+            else {
+                var musicURL = '/mp3/' + musics[Math.floor(Math.random() * musics.length)];
+            }
+
+            res.render('test', {
+                title: 'test',
+                projectName: '心理学实验',
+                resiliency: resiliencyList,
+                mood1: _.shuffle(moodList),
+                mood2: _.shuffle(moodList),
+                hasMusic: hasMusic,
+                musicURL: musicURL,
+                helpers: {  //为了表单过长，分成两列显示
+                    leftrow: function(list, options){
+                        var ret = "";
+                        for(var i = 0; i < list.length; i++) {
+                            if ((i & 1) == 0) {
+                                ret += options.fn(list[i]);
+                            }
+                        }
+                        return ret;
+                    },
+                    rightrow: function(list, options){
+                        var ret = "";
+                        for(var i = 0; i < list.length; i++) {
+                            if (i & 1) {
+                                ret += options.fn(list[i]);
+                            }
+                        }
+                        return ret;
+                    }
+                }
+            });
         });
     });
+
 });
 
 router.post('/new', function(req, res) {
@@ -88,8 +96,9 @@ router.post('/new', function(req, res) {
         info: obj.info,
         mood_test: obj.moodTest,
         resiliency_test: obj.resiliencyTest,
-        music_mood: obj.musicMood,
-        res_sum: obj.resSum
+        music: obj.music,
+        res_sum: obj.resSum,
+        iq_reaction: obj.IQReaction
     });
 
     user.save(function (err, user) {

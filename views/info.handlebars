@@ -101,7 +101,7 @@
                     <label class="col-md-4 control-label" for="gender">性别</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="gender-0">
-                            <input type="radio" name="gender" id="gender-0" value="男" checked="checked">
+                            <input type="radio" name="gender" id="gender-0" value="男" >
                             男
                         </label>
                         <label class="radio-inline" for="gender-1">
@@ -116,7 +116,7 @@
                     <label class="col-md-4 control-label" for="age">年龄</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="age-0">
-                            <input type="radio" name="age" id="age-0" value="25岁以下" checked="checked">
+                            <input type="radio" name="age" id="age-0" value="25岁以下" >
                             25岁以下
                         </label>
                         <label class="radio-inline" for="age-1">
@@ -140,7 +140,7 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="teach_year-0">
-                                <input type="radio" name="teach_year" id="teach_year-0" value="0~3年" checked="checked">
+                                <input type="radio" name="teach_year" id="teach_year-0" value="0~3年" >
                                 0~3年
                             </label>
                         </div>
@@ -182,7 +182,7 @@
                     <label class="col-md-4 control-label" for="title">职称</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="title-0">
-                            <input type="radio" name="title" id="title-0" value="无" checked="checked">
+                            <input type="radio" name="title" id="title-0" value="无" >
                             无
                         </label>
                         <label class="radio-inline" for="title-1">
@@ -205,7 +205,7 @@
                     <label class="col-md-4 control-label" for="post">职务</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="post-0">
-                            <input type="radio" name="post" id="post-0" value="任课教师" checked="checked">
+                            <input type="radio" name="post" id="post-0" value="任课教师" >
                             任课教师
                         </label>
                         <label class="radio-inline" for="post-1">
@@ -228,7 +228,7 @@
                     <label class="col-md-4 control-label" for="education">教育程度</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="education-0">
-                            <input type="radio" name="education" id="education-0" value="高中及以下" checked="checked">
+                            <input type="radio" name="education" id="education-0" value="高中及以下" >
                             高中及以下
                         </label>
                         <label class="radio-inline" for="education-1">
@@ -252,7 +252,7 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="school_type-0">
-                                <input type="radio" name="school_type" id="school_type-0" value="国家重点" checked="checked">
+                                <input type="radio" name="school_type" id="school_type-0" value="国家重点" >
                                 国家重点
                             </label>
                         </div>
@@ -288,7 +288,7 @@
                     <label class="col-md-4 control-label" for="school_scale">学校规模</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="school_scale-0">
-                            <input type="radio" name="school_scale" id="school_scale-0" value="15班及以下" checked="checked">
+                            <input type="radio" name="school_scale" id="school_scale-0" value="15班及以下" >
                             15班及以下
                         </label>
                         <label class="radio-inline" for="school_scale-1">
@@ -312,7 +312,7 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="class-0">
-                                <input type="radio" name="classes_per_week" id="class-0" value="5课时以下" checked="checked">
+                                <input type="radio" name="classes_per_week" id="class-0" value="5课时以下" >
                                 5课时以下
                             </label>
                         </div>
@@ -365,11 +365,11 @@
     $(document).ready(function(){
     //InstantClick.on('change', function(){
         $("#button").click(function(){
-            if($("#contact").val()=="" || $("#nickname").val()=="") {
+            var x = $("form").serializeArray();
+            if(x.length < 13) {
                 swal("哦——","请将本页信息填写全","warning");
             }
             else {
-                var x = $("form").serializeArray();
                 var xobj = {info: {}};
                 $.each(x, function(i, field){
                     xobj.info[field.name] = field.value;

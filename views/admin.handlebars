@@ -31,12 +31,12 @@
 
     <div class="row-fluid">
         <div class="span12">
-            <h3>积极</h3>
+            <h3>积极音乐组</h3>
             <table class="table table-hover  table-bordered">
                 <thead>
                 <tr>
                     <th>
-                        编号
+                        Document ID
                     </th>
                     <th>
                         测试时间
@@ -110,12 +110,12 @@
 
     <div class="row-fluid">
         <div class="span12">
-            <h3>消极</h3>
+            <h3>消极音乐组</h3>
             <table class="table table-hover  table-bordered">
                 <thead>
                 <tr>
                     <th>
-                        内部编号
+                        Document ID
                     </th>
                     <th>
                         测试时间
@@ -187,6 +187,78 @@
         </div>
     </div>
 
+    <div class="row-fluid">
+        <div class="span12">
+            <h3>无音乐组</h3>
+            <table class="table table-hover  table-bordered">
+                <thead>
+                <tr>
+                    <th>
+                        Document ID
+                    </th>
+                    <th>
+                        测试时间
+                    </th>
+                    <th>
+                        用户IP
+                    </th>
+                    <th>
+                        复原力总分
+                    </th>
+                    <th>
+                        详情
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="table_list">
+                {{#each_0 users}}
+                    <tr class="item-id-{{_id}}">
+                        <td>
+                            {{_id}}
+                        </td>
+                        <td>
+                            {{formatDate date}}
+                        </td>
+                        <td>
+                            {{ip}}
+                        </td>
+                        <td>
+                            {{res_sum}}
+                        </td>
+                        <td>
+                            <a target="_blank" class="btn btn-primary" href="/admin?user={{_id}}" type="button">查看</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger del" type="button" data-id="{{_id}}">删除</button>
+                        </td>
+                    </tr>
+                {{/each_0}}
+
+                </tbody>
+            </table>
+
+            <script id="table_template" type="text/x-handlebars-template">
+
+            </script>
+
+            <!--script type="text/javascript">
+                $(document).ready(function() {
+                    var table_template = Handlebars.compile($("#table_template").html());
+                    console.log("Here!");
+                    Handlebars.registerHelper("moment", function (date) {
+                        //return moment(date).format("YYYY/MM/DD HH:mm:ss");
+                        return Date(date).toString('yyyy-MM-dd');
+                    });
+                    console.log("Here!");
+                    $("#table_list").html(table_template({{!users}}));
+                });
+            </script-->
+
+        </div>
+    </div>
 
     <a target="_blank" class="btn btn-primary btn-lg" href="/admin/excel" type="button">导出数据</a>
 
@@ -228,8 +300,11 @@
                     type: 'DELETE',
                     url: '/admin?id=' + id
                 }).done(function(results){
-                    if (results.success == 1){
+                    if (results.delete_success == 1){
+                        console.log("delete a document!");
                         if (tr.length > 0) {
+                            //console.log(tr.length);
+                            console.log(tr);
                             tr.remove();
                         }
                     }

@@ -19,7 +19,7 @@
     <div class="row-fluid marketing">
         <div hidden>
             <audio id="myAudio" controls='controls'>
-                <source data-no-instant src='{{music}}' type="audio/mp3">
+                <source data-no-instant src='{{musicURL}}' type="audio/mp3">
                 您的浏览器不支持HTML5播放音乐！
             </audio>
         </div>
@@ -145,56 +145,63 @@
 <script data-no-instant>
 
     $(document).ready(function() {
-        //InstantClick.on('fetch', function () {
+        //InstantClick.on('fetch', function () {3
             ///console.log('instantclick change');
-            $('.heart-rating').rating({
-                'showCaption': true,
-                'stars': '5',
-                'min': '0',
-                'max': '5',
-                'step': '1',
-                'size': 'sm',
-                'starCaptions': {0: '未选', 1: '几乎没有', 2: '比较少', 3: '中等程度', 4: '比较多', 5: '极其多'}
-            });
-
-            $('.resiliency-rating').rating({
-                'showCaption': true,
-                'stars': '7',
-                'min': '0',
-                'max': '7',
-                'step': '1',
-                'size': 'sm',
-                'starCaptions': {0: '未选', 1: '完全不符合', 2: '比较不符合', 3: '有点不符合', 4: '不确定', 5: '有点符合', 6: '比较符合', 7: '完全符合'}
-            });
-
-            var music = "{{music}}";
-            var isPositive = true;
-            if (music.substring(5, 7) == 'ne') isPositive = false;
-
-            var currentUser = "user" + store.get('pagecount');
-            //console.log(store.get(currentUser));
-            if (!store.get(currentUser)) {
-                swal({
-                    title: "非法页面访问！",
-                    type: "error",
-                    timer: 3000
-                });
-                setTimeout("window.location.href='/'", 3000);
-            }
-
-            $("#rs_button").click(function () {
-                resiliency(currentUser, isPositive);
-            });
-
-            $("#md_button1").click(function () {
-                baseline();
-            });
-
-            $("#md_button2").click(function () {
-                finalTest(currentUser);
-            });
-
+        $('.heart-rating').rating({
+            'showCaption': true,
+            'stars': '5',
+            'min': '0',
+            'max': '5',
+            'step': '1',
+            'size': 'sm',
+            'starCaptions': {0: '未选', 1: '几乎没有', 2: '比较少', 3: '中等程度', 4: '比较多', 5: '极其多'}
         });
+
+        $('.resiliency-rating').rating({
+            'showCaption': true,
+            'stars': '7',
+            'min': '0',
+            'max': '7',
+            'step': '1',
+            'size': 'sm',
+            'starCaptions': {0: '未选', 1: '完全不符合', 2: '比较不符合', 3: '有点不符合', 4: '不确定', 5: '有点符合', 6: '比较符合', 7: '完全符合'}
+        });
+
+        var musicURL = "{{musicURL}}";
+        var musicMood = 0;
+        if({{hasMusic}}) {
+            if (musicURL.substring(5, 7) == 'po') {
+                musicMood = 1;
+            }
+            else{
+                musicMood = -1;
+            }
+        }
+
+        var currentUser = "user" + store.get('pagecount');
+        //console.log(store.get(currentUser));
+        if (!store.get(currentUser)) {
+            swal({
+                title: "非法页面访问！",
+                type: "error",
+                timer: 3000
+            });
+            setTimeout("window.location.href='/'", 3000);
+        }
+
+        $("#rs_button").click(function () {
+            resiliency(currentUser, musicMood);
+        });
+
+        $("#md_button1").click(function () {
+            baseline();
+        });
+
+        $("#md_button2").click(function () {
+            finalTest(currentUser);
+        });
+
+    });
     //});
     //InstantClick.init();
 </script>
