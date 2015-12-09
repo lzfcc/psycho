@@ -117,7 +117,26 @@ router.delete('/', function (req, res) {
 
 router.get('/content', function (req, res) {
     Test.find1stDoc(function(err, currentSetting){
-        var checked = currentSetting.music_on ? 'checked': '';
+        var checked;
+        if(currentSetting == undefined){ //一般情况也进不到这里了
+            var test = new Test({
+                music_on: true,
+                iq_picture_order: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            });
+
+            test.save(function (err, setting) {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    res.json({create_success: 1});
+                }
+            });
+            checked = 'checked';
+        }
+        else{
+            checked = currentSetting.music_on ? 'checked': '';
+        }
         res.render('content', {
             layout: 'admin_layout',
             projectName: '心理学实验',

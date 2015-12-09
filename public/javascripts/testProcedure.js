@@ -240,7 +240,7 @@ function playMusic(){
 		$("#mood_rating22").show();
 		$("#h1").text("实验第三部分");
 		$("#countdown").text("好，现在请根据您此时此刻的心情状态进行评分！从一颗心到五颗心分别表示：几乎没有、比较少、中等程度、比较多、极其多。");
-	},du * 960);
+	},du * 990);
 }
 
 function finalTest (currentUser) {

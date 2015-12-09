@@ -2,15 +2,22 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/models/Test.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/about.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/admin.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/contact.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/routes/ending.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/index.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/info.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/routes/instruction.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/routes/test.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/routes/users.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/schemas/testSchema.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/schemas/userSchema.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/admin.handlebars" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/content.handlebars" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/detail.handlebars" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/ending.handlebars" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/views/instruction.handlebars" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/views/partials/navigate.handlebars" charset="UTF-8" />
   </component>
 </project>
